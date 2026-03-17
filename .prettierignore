@@ -1,0 +1,16 @@
+# 忽略打包資料夾
+dist/
+build/
+coverage/
+
+# 忽略第三方套件
+node_modules/
+
+# 忽略靜態資源
+public/
+*.png
+*.jpg
+*.svg
+
+# 鎖定檔
+package-lock.json
