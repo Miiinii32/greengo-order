@@ -1,4 +1,4 @@
-import { POSTlogout } from '@/api/authApi';
+import { POSTlogout } from '@/api/authRequestApi';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLayout = () => {
