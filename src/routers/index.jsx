@@ -9,6 +9,7 @@ import OrderPage from '@/pages/admin/OrderPage';
 import IngredientsPage from '@/pages/admin/IngredientsPage';
 import FixedPokesPage from '@/pages/admin/FixedPokesPage';
 import OtherProductsPage from '@/pages/admin/OtherProductsPage';
+import LoginPage from '@/pages/admin/LoginPages';
 
 const routes = [
   {
@@ -33,12 +34,16 @@ const routes = [
     ],
   },
   {
+    path: `/admin/login`,
+    element: <LoginPage />,
+  },
+  {
     path: '/admin',
     element: <AdminLayout />,
     children: [
       {
-        path: 'order',
-        element: <OrderPage />,
+        index: true,
+        element: <OrderPage />, // 可以換成dashboard
       },
       {
         path: 'product',
