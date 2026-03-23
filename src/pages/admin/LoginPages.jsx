@@ -1,4 +1,5 @@
-import { POSTsignin } from '@/api/authApi';
+import { POSTsignin } from '@/api/authRequestApi';
+import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -24,9 +25,10 @@ const LoginPage = () => {
   return (
     <>
       <p>這是登入頁</p>
-      <button type="button" onClick={loginin}>
+
+      <Button type="button" variant="default" onClick={loginin}>
         登入按鈕
-      </button>
+      </Button>
     </>
   );
 };

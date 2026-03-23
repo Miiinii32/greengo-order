@@ -1,0 +1,26 @@
+:root {
+  /* font family */
+  --ft-ch-base: 'Noto Sans TC', sans-serif;
+  --ft-en-base: 'Noto Sans TC', sans-serif;
+
+  /* font size */
+  --fs-6xl: 4.5rem; /* 72px */
+  --fs-5xl: 3.25rem; /* 52px */
+  --fs-4xl: 2.5rem; /* 40px */
+  --fs-3xl: 2rem; /* 32px */
+  --fs-2xl: 1.75rem; /* 28px */
+  --fs-xl: 1.5rem; /* 24px */
+  --fs-lg: 1.25rem; /* 20px */
+  --fs-md: 1rem; /* 16px */
+  --fs-sm: 0.875rem; /* 14px */
+
+  /* font weight ---> 使用 Tailwind 變數 */
+
+  /* line height */
+  --lh-md: 1.65;
+  --lh-sm: 1.2;
+
+  /* letter-spacing */
+  --ls-lg: 0rem;
+  --ls-md: 0.02rem;
+}

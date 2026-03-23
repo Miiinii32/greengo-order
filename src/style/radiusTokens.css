@@ -1,0 +1,11 @@
+:root {
+  --rounded-none: 0rem; /* 0px */
+  --rounded-xs: 0.5rem; /* 8px */
+  --rounded-sm: 0.75rem; /* 12px */
+  --rounded-md: 1rem; /* 16px */
+  --rounded-lg: 1.25rem; /* 20px */
+  --rounded-xl: 2rem; /* 32px */
+  --rounded-2xl: 2.5rem; /* 40px */
+  --rounded-3xl: 5rem; /* 80px */
+  --rounded-full: 9999px;
+}

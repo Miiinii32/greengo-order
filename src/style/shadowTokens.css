@@ -1,0 +1,23 @@
+:root {
+  --shadow-color-sm: oklch(0 0 0 / 0.1);
+  --shadow-color-md: oklch(0 0 0 / 0.13);
+  --shadow-color-lg: oklch(0 0 0 / 0.2);
+
+  /* shadow-sm */
+  --shadow-up-sm: 0px -2px 10px 0 var(--shadow-color);
+  --shadow-down-sm: 0px 2px 10px 0 var(--shadow-color);
+  --shadow-right-sm: 2px 0px 10px 0 var(--shadow-color);
+  --shadow-left-sm: -2px 0px 10px 0 var(--shadow-color);
+
+  /* shadow-md */
+  --shadow-up-sm: 0px -2px 15px 0 var(--shadow-color);
+  --shadow-down-sm: 0px 2px 15px 0 var(--shadow-color);
+  --shadow-right-sm: 2px 0px 15px 0 var(--shadow-color);
+  --shadow-left-sm: -2px 0px 15px 0 var(--shadow-color);
+
+  /* shadow-lg */
+  --shadow-up-sm: 0px -2px 20px 0 var(--shadow-color);
+  --shadow-down-sm: 0px 2px 20px 0 var(--shadow-color);
+  --shadow-right-sm: 2px 0px 20px 0 var(--shadow-color);
+  --shadow-left-sm: -2px 0px 20px 0 var(--shadow-color);
+}
