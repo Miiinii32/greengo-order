@@ -82,6 +82,7 @@
 
   /* primary color */
   --color-primary: var(--primary-500);
+  --color-primary-dim: var(--primary-600);
   --color-on-primary: var(--neutral-white);
   --color-primary-container: var(--primary-100);
   --color-on-primary-container: var(--primary-500);
@@ -112,22 +113,24 @@
 
   /* surface color */
   --color-surface: var(--neutral-white);
-  --color-on-surface-neutral: var(--neutral-black);
-  --color-on-surface-neutral-variant: var(--neutral-600);
-  --color-on-surface-neutral-light: var(--neutral-400);
-  --color-on-surface-primary: var(--primary-500);
-  --color-surface-container: var(--neutral-100);
-  --color-on-surface-container: var(--neutral-500);
+  --color-surface-hover: var(--neutral-100);
+  --color-on-surface: var(--neutral-black);
+  --color-on-surface-light: var(--neutral-600);
+  --color-on-surface-lighter: var(--neutral-400);
+
   --color-surface-dim: var(--neutral-200);
+  --color-surface-dim-hover: var(--neutral-300);
   --color-on-surface-dim: var(--neutral-black);
   --color-on-surface-dim-variant: var(--neutral-600);
+
   --color-surface-light: var(--neutral-100);
+  --color-surface-light-hover: var(--neutral-200);
   --color-on-surface-light: var(--neutral-600);
-  --color-on-surface-light-variant: var(--neutral-400);
+  --color-on-surface-light-light: var(--neutral-400);
 
   /* outline color */
-  --color-outline-neutral: var(--neutral-400);
-  --color-outline-neutral-variant: var(--neutral-300);
+  --color-outline: var(--neutral-400);
+  --color-outline-light: var(--neutral-300);
   --color-outline-primary: var(--primary-500);
 
   /* radius */
@@ -148,15 +151,15 @@
   --ft-en-base: var(--ft-en-base);
 
   /* font size */
-  --text-6xl: var (--fs-6xl);
-  --text-5xl: var (--fs-5xl);
-  --text-4xl: var (--fs-4xl);
+  --text-6xl: var(--fs-6xl);
+  --text-5xl: var(--fs-5xl);
+  --text-4xl: var(--fs-4xl);
   --text-3xl: var(--fs-3xl);
-  --text-2xl: var (--fs-2xl);
-  --text-xl: var (--fs-xl);
-  --text-lg: var (--fs-lg);
+  --text-2xl: var(--fs-2xl);
+  --text-xl: var(--fs-xl);
+  --text-lg: var(--fs-lg);
   --text-md: var(--fs-md);
-  --text-sm: var (--fs-sm);
+  --text-sm: var(--fs-sm);
 
   /* line height */
   --leading-md: var(--lh-md);
@@ -214,7 +217,7 @@
     @apply border-border outline-ring/50;
   } */
   body {
-    @apply bg-surface text-on-surface-neutral tracking-md text-md;
+    @apply bg-surface text-on-surface;
   }
   html {
     @apply font-sans;
@@ -257,5 +260,8 @@
   }
   body-3-emphasis {
     @apply text-sm font-medium leading-md;
+  }
+  .border-default {
+    @apply border border-outline;
   }
 }

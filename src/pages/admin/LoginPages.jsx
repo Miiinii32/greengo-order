@@ -1,6 +1,7 @@
 import { POSTsignin } from '@/api/authRequestApi';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/shared/button';
 import { useNavigate } from 'react-router-dom';
+import { Camera } from 'lucide-react';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -25,10 +26,59 @@ const LoginPage = () => {
   return (
     <>
       <p>這是登入頁</p>
-
-      <Button type="button" variant="default" onClick={loginin}>
-        登入按鈕
-      </Button>
+      <div className="flex pb-2">
+        <Button type="button" variant="default" size="lg" onClick={loginin}>
+          登入按鈕
+        </Button>
+        <Button type="button" variant="outline" size="lg" onClick={loginin}>
+          登入按鈕
+        </Button>
+        <Button type="button" variant="secondary" size="lg" onClick={loginin}>
+          登入按鈕
+        </Button>
+        <Button type="button" variant="ghost" size="lg" onClick={loginin}>
+          登入按鈕
+        </Button>
+      </div>
+      <div className="flex pb-2">
+        <Button type="button" variant="default" size="md" onClick={loginin}>
+          登入按鈕
+        </Button>
+        <Button type="button" variant="outline" size="md" onClick={loginin}>
+          登入按鈕
+        </Button>
+        <Button type="button" variant="secondary" size="md" onClick={loginin}>
+          登入按鈕
+        </Button>
+        <Button type="button" variant="ghost" size="md" onClick={loginin}>
+          登入按鈕
+        </Button>
+      </div>
+      <div className="flex pb-2">
+        <Button type="button" variant="default" size="sm" onClick={loginin}>
+          登入按鈕
+        </Button>
+        <Button type="button" variant="outline" size="sm" onClick={loginin}>
+          <Camera /> 登入按鈕 <Camera />
+        </Button>
+        <Button type="button" variant="secondary" size="sm" onClick={loginin}>
+          登入按鈕
+        </Button>
+        <Button type="button" variant="ghost" size="sm" onClick={loginin}>
+          登入按鈕
+        </Button>
+      </div>
+      <div className="flex">
+        <Button type="button" variant="outline" size="iconLg" onClick={loginin}>
+          <Camera />
+        </Button>
+        <Button type="button" variant="outline" size="iconMd" onClick={loginin}>
+          <Camera />
+        </Button>
+        <Button type="button" variant="outline" size="iconSm" onClick={loginin}>
+          <Camera />
+        </Button>
+      </div>
     </>
   );
 };
