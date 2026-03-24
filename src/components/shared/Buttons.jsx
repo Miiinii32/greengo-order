@@ -14,15 +14,15 @@ const buttonVariants = cva(
         secondary:
           'bg-surface-dim text-on-surface-light hover:bg-surface-dim-hover aria-expanded:bg-surface-dim aria-expanded:text-primary',
         ghost:
-          'text-on-surface-light hover:text-primary aria-expanded:bg-surface-dim aria-expanded:text-primary dark:hover:bg-muted/50',
+          'text-on-surface-light hover:text-primary hover:bg-surface-dim-hover/50 active:bg-primary active:text-on-primary focus:bg-primary focus:text-on-primary  aria-expanded:bg-surface-dim aria-expanded:text-primary dark:hover:bg-muted/60',
         destructive:
           'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        lg: 'gap-1.5 px-5 py-2.5 in-data-[slot=button-group]:rounded-md text-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
-        md: "gap-1 px-4 py-2 rounded-md text-md in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-4",
-        sm: 'gap-1 px-3.5 py-2 rounded-md text-sm in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5',
+        lg: 'gap-2 px-5 py-2.5 in-data-[slot=button-group]:rounded-md text-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
+        md: "gap-2 px-4 py-2 rounded-md text-md in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-4",
+        sm: 'gap-2 px-3.5 py-2 rounded-md text-sm in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5',
         // lg: 'h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3',
         iconMd:
           "size-10 [&_svg:not([class*='size-'])]:size-5 [&_svg]:text-on-surface-light rounded-md",
@@ -41,7 +41,7 @@ const buttonVariants = cva(
   },
 );
 
-function Button({ className, variant = 'default', size = 'md', asChild = false, ...props }) {
+function Buttons({ className, variant = 'default', size = 'md', asChild = false, ...props }) {
   const Comp = asChild ? Slot.Root : 'button';
 
   return (
@@ -55,4 +55,4 @@ function Button({ className, variant = 'default', size = 'md', asChild = false, 
   );
 }
 
-export { Button };
+export { Buttons };

@@ -10,6 +10,7 @@ import IngredientsPage from '@/pages/admin/IngredientsPage';
 import FixedPokesPage from '@/pages/admin/FixedPokesPage';
 import OtherProductsPage from '@/pages/admin/OtherProductsPage';
 import LoginPage from '@/pages/admin/LoginPages';
+import OverviewPage from '@/pages/admin/Overview';
 
 const routes = [
   {
@@ -43,12 +44,19 @@ const routes = [
     children: [
       {
         index: true,
-        element: <OrderPage />, // 可以換成dashboard
+        element: <OverviewPage />,
+      },
+      {
+        path: 'order',
+        element: <OrderPage />,
       },
       {
         path: 'product',
-        element: <Navigate to="ingredients" replace />,
         children: [
+          {
+            index: true,
+            element: <Navigate to="ingredients" replace />,
+          },
           {
             path: 'ingredients',
             element: <IngredientsPage />,
