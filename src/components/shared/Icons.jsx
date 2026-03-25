@@ -1,11 +1,30 @@
-import { ChartPie, Archive, CookingPot, LogOut } from 'lucide-react';
+import {
+  ChartPieIcon,
+  ArchiveIcon,
+  CookingPotIcon,
+  LogOutIcon,
+  SearchIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CheckIcon,
+  PlusIcon,
+} from 'lucide-react';
 
 export const Icons = {
   // AdminSidebar
-  adminReport: ChartPie,
-  adminOrder: Archive,
-  adminProduct: CookingPot,
-  adminLogout: LogOut,
+  adminReport: ChartPieIcon,
+  adminOrder: ArchiveIcon,
+  adminProduct: CookingPotIcon,
+  adminLogout: LogOutIcon,
 
   // function
+  search: SearchIcon,
+  add: PlusIcon,
+
+  // state
+  check: CheckIcon,
+
+  // direction
+  expandDown: ChevronDownIcon,
+  expandUp: ChevronUpIcon,
 };
