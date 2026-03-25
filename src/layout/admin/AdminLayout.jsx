@@ -9,7 +9,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 // import data from '@/app/dashboard/data.json';
 
-const AdminLayout = () => {
+export const AdminLayout = () => {
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -52,5 +52,3 @@ const AdminLayout = () => {
     </>
   );
 };
-
-export default AdminLayout;

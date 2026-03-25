@@ -2,6 +2,10 @@ export const LAUNCH_STATE_SELECT = {
   placeholder: '上架狀態',
   options: [
     {
+      text: '全部',
+      value: 'all',
+    },
+    {
       text: '未上架',
       value: false,
     },

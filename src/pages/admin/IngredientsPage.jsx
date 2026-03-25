@@ -2,12 +2,12 @@ import { PageHeader } from '@/components/PageHeader';
 import { TYPE_SELECT } from '@/config/admin/typeSelect';
 import { LAUNCH_STATE_SELECT } from '@/config/admin/launchStateSelect';
 
-const IngredientsPage = () => {
+export const IngredientsPage = () => {
   return (
     <>
       <PageHeader
         title="基本食材"
-        typeSelect={TYPE_SELECT}
+        typeSelect={TYPE_SELECT.ingredients}
         launchStateSelect={LAUNCH_STATE_SELECT}
         addText="新增食材"
       />
@@ -15,5 +15,3 @@ const IngredientsPage = () => {
     </>
   );
 };
-
-export default IngredientsPage;

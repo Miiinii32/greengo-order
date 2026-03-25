@@ -3,7 +3,7 @@ import { Buttons } from '@/components/shared/Buttons';
 import { useNavigate } from 'react-router-dom';
 import { Camera } from 'lucide-react';
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const navigate = useNavigate();
   const loginin = async () => {
     const username = 'greengo-order@gmail.com';
@@ -82,5 +82,3 @@ const LoginPage = () => {
     </>
   );
 };
-
-export default LoginPage;
