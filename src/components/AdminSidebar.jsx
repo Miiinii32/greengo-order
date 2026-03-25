@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SIDEBAR_MENU } from '@/config/admin/sidebarConfig';
+import { SIDEBAR_MENU } from '@/config/admin/sidebarMenu';
 import { NavLink } from 'react-router-dom';
 import { Buttons } from './shared/Buttons';
 import { SidebarMain } from '@/components/SidebarMain';
@@ -17,7 +17,7 @@ export function AdminSidebar({ logout, ...props }) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       {/* sidebar header */}
-      <SidebarHeader>
+      <SidebarHeader className="p-3 pt-4 mb-2">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-3!">
