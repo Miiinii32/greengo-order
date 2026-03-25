@@ -172,6 +172,12 @@
   /* shadow */
   --shadow-card: var(--shadow-down-sm);
 
+  /* shadcn tokens*/
+  --color-border: var(--color-outline);
+  --color-muted: var(--color-surface-dim);
+  --color-muted-foreground: var(--color-on-surface-light);
+  --color-popover-foreground: var(--color-on-surface-light);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -187,17 +193,16 @@
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
-  --color-border: var(--border);
+
   --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-foreground: var(--color-primary);
   --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
+
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   /* --color-primary: var(--primary); */
-  --color-popover-foreground: var(--popover-foreground);
+
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);

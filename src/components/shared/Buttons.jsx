@@ -20,12 +20,12 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        lg: 'gap-2 px-5 py-2.5 in-data-[slot=button-group]:rounded-md text-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
+        lg: 'gap-2 px-5 py-2.5 h-11 in-data-[slot=button-group]:rounded-md text-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
         md: "gap-2 px-4 py-2 rounded-md text-md in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-4",
         sm: 'gap-2 px-3.5 py-2 rounded-md text-sm in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5',
         // lg: 'h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3',
         iconMd:
-          "size-10 [&_svg:not([class*='size-'])]:size-5 [&_svg]:text-on-surface-light rounded-md",
+          "size-10 [&_svg:not([class*='size-'])]:size-8 [&_svg]:text-on-surface-light rounded-md",
         // 'icon-xs':
         //   "size-9 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3",
         iconSm:
