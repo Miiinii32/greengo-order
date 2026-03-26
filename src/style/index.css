@@ -90,7 +90,7 @@
   /* secondary color */
   --color-secondary: var(--secondary-400);
   --color-on-secondary: var(--neutral-700);
-  --color-secondary-container: var(--secondary-100);
+  --color-secondary-container: var(--secondary-200);
   --color-on-secondary-container: var(--secondary-600);
 
   /* accent color */
@@ -113,7 +113,7 @@
 
   /* surface color */
   --color-surface: var(--neutral-white);
-  --color-surface-hover: var(--neutral-100);
+  --color-surface-hover: color-mix(in srgb, var(--color-neutral-100), transparent 20%);
   --color-on-surface: var(--neutral-black);
   --color-on-surface-light: var(--neutral-600);
   --color-on-surface-lighter: var(--neutral-400);
@@ -173,6 +173,7 @@
   --shadow-card: var(--shadow-down-sm);
 
   /* shadcn tokens*/
+  --color-ring: var(--ring);
   --color-border: var(--color-outline);
   --color-muted: var(--color-surface-dim);
   --color-muted-foreground: var(--color-on-surface-light);
@@ -191,30 +192,22 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
+  /* --color-ring: var(--ring); */
   --color-input: var(--input);
 
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--color-primary);
-  --color-accent: var(--accent);
+  /* --color-accent: var(--accent); */
 
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
-  /* --color-primary: var(--primary); */
 
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  /* --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6); */
 }
 
 @layer base {

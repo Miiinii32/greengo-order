@@ -1,8 +1,26 @@
+import { useEffect, useState } from 'react';
+import { GETproducts } from '@/api/adminApi';
+import { formatters } from '@/utils/formatters';
 import { PageHeader } from '@/components/PageHeader';
+import { AdminTable } from '@/components/shared/AdminTable';
 import { TYPE_SELECT } from '@/config/admin/typeSelect';
 import { LAUNCH_STATE_SELECT } from '@/config/admin/launchStateSelect';
+import { PRODUCTS_TABLE_HEADER } from '@/config/admin/productsTableHeader';
 
 export const IngredientsPage = () => {
+  const [allProducts, setAllProducts] = useState([]);
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await GETproducts();
+        setAllProducts(res.products);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getProducts();
+  }, []);
+
   return (
     <>
       <PageHeader
@@ -11,7 +29,11 @@ export const IngredientsPage = () => {
         launchStateSelect={LAUNCH_STATE_SELECT}
         addText="新增食材"
       />
-      <p>食材管理頁面</p>
+      <AdminTable
+        headerContent={PRODUCTS_TABLE_HEADER.ingredients}
+        productsContent={allProducts}
+        formatters={formatters}
+      />
     </>
   );
 };

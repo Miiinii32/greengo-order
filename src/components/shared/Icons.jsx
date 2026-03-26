@@ -8,6 +8,13 @@ import {
   ChevronUpIcon,
   CheckIcon,
   PlusIcon,
+  EyeIcon,
+  SquarePenIcon,
+  TrashIcon,
+  MoreHorizontalIcon,
+  CircleCheckIcon,
+  CircleXIcon,
+  XIcon,
 } from 'lucide-react';
 
 export const Icons = {
@@ -20,9 +27,15 @@ export const Icons = {
   // function
   search: SearchIcon,
   add: PlusIcon,
+  look: EyeIcon,
+  edit: SquarePenIcon,
+  delete: TrashIcon,
+  more: MoreHorizontalIcon,
+  close: XIcon,
 
   // state
-  check: CheckIcon,
+  success: CheckIcon,
+  error: XIcon,
 
   // direction
   expandDown: ChevronDownIcon,

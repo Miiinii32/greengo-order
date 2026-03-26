@@ -31,9 +31,9 @@ function SelectTrigger({ className, size = 'default', children, ...props }) {
         /* layout */
         'flex w-fit items-center justify-between gap-2 py-2 pr-4 pl-4.5 rounded-md ',
         /* style */
-        'border border-outline bg-transparent shadow-xs text-md  whitespace-nowrap transition-[color,box-shadow] outline-none',
+        'border border-outline bg-surface text-on-surface shadow-0 text-md  whitespace-nowrap transition-[color,box-shadow] outline-none',
         /* focus, disable, aria */
-        'focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20',
+        'focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20',
         /* svg */
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         /* data- */
@@ -66,9 +66,9 @@ function SelectContent({
         data-align-trigger={position === 'item-aligned'}
         className={cn(
           /* layout */
-          'relative z-50 max-h-(--radix-select-content-available-height) min-w-36 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md',
+          'relative z-50 max-h-(--radix-select-content-available-height) min-w-36 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md py-2 px-1.5 mt-2',
           /* style */
-          'bg-surface text-on-surface-light shadow-md ring-1 ring-foreground/10 duration-100 data-[align-trigger=true]:animate-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+          'bg-surface text-on-surface-light shadow-md ring-1 ring-foreground/10 duration-100 border border-outline data-[align-trigger=true]:animate-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
           /* animation */
           'data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
           position === 'popper' &&
@@ -113,9 +113,9 @@ function SelectItem({ className, children, ...props }) {
         /* layout */
         'relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 px-4  select-none',
         /* style */
-        'text-sm outline-hidden',
+        'text-md outline-hidden',
         /* focus, disable */
-        'focus:bg-surface-dim-hover/50 focus:text-primary not-data-[variant=destructive]:focus:**:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 ',
+        'focus:bg-primary-container focus:text-primary not-data-[variant=destructive]:focus:**:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 ',
         /* syg */
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
