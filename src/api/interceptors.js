@@ -1,23 +1,23 @@
 export const applyInterceptors = (apiInstance) => {
-  const needTokenApi = ['admin', 'logout', 'user/check'];
+  const needTokenPath = ['admin', 'logout', 'user/check'];
 
   apiInstance.interceptors.request.use(
     (config) => {
-      const needToken = needTokenApi.some((path) => config.url.includes(path));
-      if (needToken) {
-        if (config.url.includes('admin/signin')) return config;
+      const isAuthPath = needTokenPath.some((path) => config.url.includes(path));
+      const isLoginPath = config.url.includes('admin/signin');
+
+      if (isAuthPath && !isLoginPath) {
         const ggoToken = document.cookie.replace(
           /(?:(?:^|.*;\s*)ggoToken\s*=\s*([^;]*).*$)|^.*$/,
           '$1',
         );
-        config.headers = config.headers || {};
-        config.headers.Authorization = `${ggoToken}`;
+        config.headers.Authorization = ggoToken;
         return config;
       }
       return config;
     },
     (error) => {
-      Promise.reject(error.response.data);
+      return Promise.reject(error.response.data);
     },
   );
   apiInstance.interceptors.response.use(
@@ -25,7 +25,7 @@ export const applyInterceptors = (apiInstance) => {
       return response.data;
     },
     (error) => {
-      Promise.reject(error.response.data);
+      return Promise.reject(error.response);
     },
   );
 };

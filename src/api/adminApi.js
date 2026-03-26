@@ -5,7 +5,7 @@ const apiPath = import.meta.env.VITE_API_PATH;
 
 // instance
 const adminApi = axios.create({
-  baseURL: `${apiUrl}/v2/api/${apiPath}/admin/`,
+  baseURL: `${apiUrl}/v2/api/${apiPath}`,
 });
 
 // interceptors
@@ -13,22 +13,22 @@ applyInterceptors(adminApi);
 
 // 後台產品 api
 export const GETproducts = () => {
-  return adminApi.get(`products/all`);
+  return adminApi.get(`/admin/products`);
 };
 
 export const POSTsingleProduct = (data) => {
-  return adminApi.post(`product`, { data: data });
+  return adminApi.post(`/admin/product`, { data: data });
 };
 
 export const PUTsingleProduct = (id, data) => {
-  return adminApi.put(`product/${id}`, { data: data });
+  return adminApi.put(`/admin/product/${id}`, { data: data });
 };
 
 export const DELETEsingleProduct = (id, data) => {
-  return adminApi.put(`product/${id}`, { data: data });
+  return adminApi.delete(`/admin/product/${id}`, { data: data });
 };
 
 // 後台上傳圖片 api
 export const POSTuploadPic = (data) => {
-  return adminApi.get(`upload`, data);
+  return adminApi.post(`/admin/upload`, data);
 };
