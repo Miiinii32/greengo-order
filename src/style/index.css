@@ -133,6 +133,11 @@
   --color-outline-light: var(--neutral-300);
   --color-outline-primary: var(--primary-500);
 
+  /* chart color */
+  --color-chart-1: var(--function-error-dark); /* 蛋白量 */
+  --color-chart-2: var(--primary-500); /* 碳水量 */
+  --color-chart-3: var(--secondary-600); /* 脂肪量 */
+
   /* radius */
   --radius-none: var(--rounded-none);
   --radius-xs: var(--rounded-xs);
@@ -189,9 +194,7 @@
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
+
   /* --color-ring: var(--ring); */
   --color-input: var(--input);
 
@@ -239,25 +242,46 @@
     @apply text-xl font-semibold leading-sm;
   }
   h6 {
-    @apply text-lg font-semibold leading-sm;
+    @apply text-lg font-semibold leading-sm text-on-surface;
   }
-  body-1 {
-    @apply text-lg font-normal leading-md;
+  .display-1 {
+    @apply text-6xl font-semibold leading-sm text-on-surface;
   }
-  body-2 {
-    @apply text-md font-normal leading-md;
+  .h1 {
+    @apply text-5xl font-semibold leading-sm text-on-surface;
   }
-  body-3 {
-    @apply text-sm font-normal leading-md;
+  .h2 {
+    @apply text-4xl font-semibold leading-sm text-on-surface;
   }
-  body-1-emphasis {
-    @apply text-lg font-medium leading-md;
+  .h3 {
+    @apply text-3xl font-semibold leading-sm text-on-surface;
   }
-  body-2-emphasis {
-    @apply text-md font-medium leading-md;
+  .h4 {
+    @apply text-2xl font-semibold leading-sm text-on-surface;
   }
-  body-3-emphasis {
-    @apply text-sm font-medium leading-md;
+  .h5 {
+    @apply text-xl font-semibold leading-sm text-on-surface;
+  }
+  .h6 {
+    @apply text-lg font-semibold leading-sm text-on-surface;
+  }
+  .body-1 {
+    @apply text-lg font-normal leading-md text-on-surface;
+  }
+  .body-2 {
+    @apply text-md font-normal leading-md text-on-surface;
+  }
+  .body-3 {
+    @apply text-sm font-normal leading-md text-on-surface;
+  }
+  .body-1-emphasis {
+    @apply text-lg font-medium leading-md text-on-surface;
+  }
+  .body-2-emphasis {
+    @apply text-md font-medium leading-md text-on-surface;
+  }
+  .body-3-emphasis {
+    @apply text-sm font-medium leading-md text-on-surface;
   }
   .border-default {
     @apply border border-outline;

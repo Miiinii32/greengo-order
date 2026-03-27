@@ -11,7 +11,7 @@ import {
 export const OneGroupSelects = ({ content }) => {
   return (
     <Select>
-      <SelectTrigger className="w-auto min-w-40 max-w-48">
+      <SelectTrigger className="w-full min-w-40">
         <SelectValue placeholder={content.placeholder} />
       </SelectTrigger>
       <SelectContent position="popper">

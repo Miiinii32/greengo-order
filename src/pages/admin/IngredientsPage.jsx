@@ -6,9 +6,12 @@ import { AdminTable } from '@/components/shared/AdminTable';
 import { TYPE_SELECT } from '@/config/admin/typeSelect';
 import { LAUNCH_STATE_SELECT } from '@/config/admin/launchStateSelect';
 import { PRODUCTS_TABLE_HEADER } from '@/config/admin/productsTableHeader';
+import { ProductDetailPage } from './ProductDetailPage';
 
 export const IngredientsPage = () => {
   const [allProducts, setAllProducts] = useState([]);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -20,6 +23,10 @@ export const IngredientsPage = () => {
     };
     getProducts();
   }, []);
+
+  const handleOpenModal = () => {
+    setIsOpenModal(true);
+  };
 
   return (
     <>
@@ -33,7 +40,9 @@ export const IngredientsPage = () => {
         headerContent={PRODUCTS_TABLE_HEADER.ingredients}
         productsContent={allProducts}
         formatters={formatters}
+        openModal={handleOpenModal}
       />
+      <ProductDetailPage isOpenModal={isOpenModal} onOpenChange={setIsOpenModal} />
     </>
   );
 };

@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export const AdminTable = ({ headerContent, productsContent, formatters }) => {
+export const AdminTable = ({ headerContent, productsContent, formatters, openModal }) => {
   const handleCapacityState = (costCapacity) => {
     let textColor = '';
     let textIcon = '';
@@ -84,6 +84,7 @@ export const AdminTable = ({ headerContent, productsContent, formatters }) => {
               </Badge>
             </TableCell>
 
+            {/* operate */}
             <TableCell className="pr-6">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -93,7 +94,7 @@ export const AdminTable = ({ headerContent, productsContent, formatters }) => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={openModal}>
                     <Icons.look />
                     查看
                   </DropdownMenuItem>

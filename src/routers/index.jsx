@@ -11,6 +11,7 @@ import { FixedPokesPage } from '@/pages/admin/FixedPokesPage';
 import { OtherProductsPage } from '@/pages/admin/OtherProductsPage';
 import { LoginPage } from '@/pages/admin/LoginPages';
 import { OverviewPage } from '@/pages/admin/Overview';
+// import { TestPages } from '@/pages/testPage';
 
 const routes = [
   {
@@ -73,6 +74,10 @@ const routes = [
       },
     ],
   },
+  // {
+  //   path: '/test',
+  //   element: <TestPages />,
+  // },
 ];
 
 const router = createHashRouter(routes);
