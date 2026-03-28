@@ -64,8 +64,8 @@ export const AdminTable = ({ headerContent, productsContent, formatters, openMod
             </TableCell>
             <TableCell>{`$ ${item.price}`}</TableCell>
             <TableCell>{`${item.capacity} g`}</TableCell>
-            <TableCell>{`$ ${item.cost_price}`}</TableCell>
-            {handleCapacityState(item.cost_capacity)}
+            <TableCell>{`$ ${item.costPrice}`}</TableCell>
+            {handleCapacityState(item.costCapacity)}
             {item.content ? (
               <TableCell className="flex justify-center">
                 <div className="text-left">
@@ -78,9 +78,9 @@ export const AdminTable = ({ headerContent, productsContent, formatters, openMod
               </TableCell>
             ) : null}
             <TableCell>
-              <Badge variant={item.is_enabled ? 'success' : 'default'}>
-                {item.is_enabled ? <Icons.success /> : <Icons.error />}
-                {item.is_enabled ? '已上架' : '已下架'}
+              <Badge variant={item.isEnabled ? 'success' : 'default'}>
+                {item.isEnabled ? <Icons.success /> : <Icons.error />}
+                {item.isEnabled ? '已上架' : '已下架'}
               </Badge>
             </TableCell>
 

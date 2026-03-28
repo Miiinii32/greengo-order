@@ -78,13 +78,12 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange }) => {
                     <div className="flex gap-8">
                       <Field>
                         <FieldLabel htmlFor="stockQuantity">庫存量</FieldLabel>
-                        <Input type="number" id="stockQuantity" required />
+                        <Input type="number" id="stockQuantity" defaultValue="100" required />
                       </Field>
                       <Field>
-                        <FieldLabel htmlFor="stockQuantity">是否上架</FieldLabel>
+                        <FieldLabel htmlFor="isEnabled">是否上架</FieldLabel>
                         <div className="flex gap-3">
-                          <Switch />
-                          <Label className="text-on-surface font-normal">上架</Label>
+                          <Switch id="isEnabled" defaultValue="false" />
                         </div>
                       </Field>
                     </div>
@@ -216,14 +215,6 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange }) => {
             </div>
           </ScrollArea>
         </div>
-
-        {/* dialog footer */}
-        {/* <DialogFooter className="py-4 px-6">
-          <DialogClose asChild>
-            <Buttons variant="secondary">取消</Buttons>
-          </DialogClose>
-          <Buttons variant="default">儲存</Buttons>
-        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   );
