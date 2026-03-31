@@ -1,16 +1,22 @@
+/* hooks, utils */
 import { useEffect, useState } from 'react';
-import { GETproducts } from '@/api/adminApi';
+import { GETproducts, DELETEsingleProduct } from '@/api/adminApi';
 import { formatters } from '@/utils/formatters';
+
+/* pages, component */
 import { PageHeader } from '@/components/PageHeader';
 import { AdminTable } from '@/components/shared/AdminTable';
-import { TYPE_SELECT } from '@/config/admin/typeSelect';
-import { LAUNCH_STATE_SELECT } from '@/config/admin/launchStateSelect';
-import { PRODUCTS_TABLE_HEADER } from '@/config/admin/productsTableHeader';
 import { ProductDetailPage } from './ProductDetailPage';
+
+/* config */
+import { SELECT_OPTIONS } from '@/config/admin/selectOptions';
+import { LAUNCH_STATE_SELECT } from '@/config/admin/selectOptions';
+import { PRODUCTS_TABLE_HEADER } from '@/config/admin/productsTableHeader';
 
 export const IngredientsPage = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -24,15 +30,20 @@ export const IngredientsPage = () => {
     getProducts();
   }, []);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (singleProduct) => {
     setIsOpenModal(true);
+    setSelectedProduct(singleProduct);
+  };
+
+  const deleteProduct = (id) => {
+    DELETEsingleProduct(id);
   };
 
   return (
     <>
       <PageHeader
         title="基本食材"
-        typeSelect={TYPE_SELECT.ingredients}
+        typeSelect={SELECT_OPTIONS.products.ingredients.type}
         launchStateSelect={LAUNCH_STATE_SELECT}
         addText="新增食材"
       />
@@ -41,8 +52,13 @@ export const IngredientsPage = () => {
         productsContent={allProducts}
         formatters={formatters}
         openModal={handleOpenModal}
+        deleteProduct={deleteProduct}
       />
-      <ProductDetailPage isOpenModal={isOpenModal} onOpenChange={setIsOpenModal} />
+      <ProductDetailPage
+        isOpenModal={isOpenModal}
+        onOpenChange={setIsOpenModal}
+        productContent={selectedProduct}
+      />
     </>
   );
 };

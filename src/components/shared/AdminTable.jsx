@@ -9,15 +9,21 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from '@/components/ui/dropdown-menu';
 
-export const AdminTable = ({ headerContent, productsContent, formatters, openModal }) => {
+export const AdminTable = ({
+  headerContent,
+  productsContent,
+  formatters,
+  openModal,
+  deleteProduct,
+}) => {
   const handleCapacityState = (costCapacity) => {
     let textColor = '';
     let textIcon = '';
@@ -60,7 +66,7 @@ export const AdminTable = ({ headerContent, productsContent, formatters, openMod
             </TableCell>
             <TableCell className="font-medium">{item.title}</TableCell>
             <TableCell>
-              <Badge variant="outline">{formatters(item.type)}</Badge>
+              <Badge variant="outline">{formatters('ingredientsType', item.type)}</Badge>
             </TableCell>
             <TableCell>{`$ ${item.price}`}</TableCell>
             <TableCell>{`${item.capacity} g`}</TableCell>
@@ -84,8 +90,24 @@ export const AdminTable = ({ headerContent, productsContent, formatters, openMod
               </Badge>
             </TableCell>
 
+            <TableCell>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-11"
+                onClick={() => {
+                  openModal(item);
+                }}
+              >
+                <Icons.edit />
+              </Button>
+              <Button variant="ghost" size="icon" className="size-11" onClick={deleteProduct}>
+                <Icons.delete />
+              </Button>
+            </TableCell>
+
             {/* operate */}
-            <TableCell className="pr-6">
+            {/* <TableCell className="pr-6">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="size-11">
@@ -108,7 +130,7 @@ export const AdminTable = ({ headerContent, productsContent, formatters, openMod
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </TableCell>
+            </TableCell> */}
           </TableRow>
         ))}
       </TableBody>

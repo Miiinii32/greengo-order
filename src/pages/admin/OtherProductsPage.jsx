@@ -1,13 +1,13 @@
 import { PageHeader } from '@/components/PageHeader';
-import { TYPE_SELECT } from '@/config/admin/typeSelect';
-import { LAUNCH_STATE_SELECT } from '@/config/admin/launchStateSelect';
+import { SELECT_OPTIONS } from '@/config/admin/selectOptions';
+import { LAUNCH_STATE_SELECT } from '@/config/admin/selectOptions';
 
 export const OtherProductsPage = () => {
   return (
     <>
       <PageHeader
         title="其他商品"
-        typeSelect={TYPE_SELECT.otherProducts}
+        typeSelect={SELECT_OPTIONS.products.otherProducts.type}
         launchStateSelect={LAUNCH_STATE_SELECT}
         addText="新增其他商品"
       />

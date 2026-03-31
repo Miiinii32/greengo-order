@@ -2,6 +2,6 @@
 
 import { FORMATTER_DATA } from '@/config/translateData';
 
-export const formatters = (enValue) => {
-  return FORMATTER_DATA[enValue];
+export const formatters = (valueCategory, enValue) => {
+  return FORMATTER_DATA[valueCategory][enValue];
 };
