@@ -19,15 +19,15 @@ export const SELECT_OPTIONS = {
       options: [
         {
           text: '食材',
-          value: 'item',
+          value: 'ingredients',
         },
         {
           text: '固定 POKE 碗',
-          value: 'fixed',
+          value: 'fixedPokes',
         },
         {
           text: '其他商品',
-          value: 'other',
+          value: 'otherProducts',
         },
       ],
     },
@@ -54,56 +54,6 @@ export const SELECT_OPTIONS = {
           {
             text: '撒料',
             value: 'topping',
-          },
-        ],
-      },
-      suitableTypeTag: {
-        placeholder: '請選擇推薦分類',
-        options: [
-          {
-            text: '輕食',
-            value: 'light',
-          },
-          {
-            text: '均衡',
-            value: 'balanced',
-          },
-          {
-            text: '高蛋白',
-            value: 'highProtein',
-          },
-        ],
-      },
-      allergenTag: {
-        placeholder: '請選擇過敏標籤',
-        options: [
-          {
-            text: '牛肉',
-            value: 'beef',
-          },
-          {
-            text: '海鮮',
-            value: 'seafish',
-          },
-          {
-            text: '辣',
-            value: 'spicy',
-          },
-          {
-            text: '大豆',
-            value: 'soy',
-          },
-          {
-            text: '蛋',
-            value: 'egg',
-          },
-          {
-            text: '堅果',
-            value: 'nuts',
-          },
-          {
-            text: '芝麻',
-            value: 'sesame',
           },
         ],
       },

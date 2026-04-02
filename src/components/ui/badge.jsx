@@ -10,7 +10,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: 'bg-surface-dim text-on-surface-dim [a]:hover:bg-primary/80',
-        success: 'bg-success-container text-on-success-container [a]:hover:bg-primary/80',
+        success: 'bg-success-container text-success [a]:hover:bg-primary/80',
         error:
           'bg-error-container text-error focus-visible:ring-error/20 dark:bg-error/20 dark:focus-visible:ring-error/40 [a]:hover:bg-error/20',
         outline:

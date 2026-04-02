@@ -93,7 +93,7 @@ function FieldLabel({ className, ...props }) {
         /* layout */
         'group/field-label peer/field-label flex w-fit gap-2',
         /* style */
-        'leading-snug',
+        'leading-snug text-on-surface-variant',
         /* disable, checked */
         'group-data-[disabled=true]/field:opacity-50 has-data-checked:border-primary/30 has-data-checked:bg-primary/5',
         'has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border *:data-[slot=field]:p-3',
@@ -125,7 +125,7 @@ function FieldDescription({ className, ...props }) {
     <p
       data-slot="field-description"
       className={cn(
-        'text-left text-sm leading-normal font-normal text-muted-foreground group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
+        'text-left text-sm leading-normal font-normal text-on-surface-lighter group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-5',
         'last:mt-0 nth-last-2:-mt-1',
         '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary',
         className,
@@ -149,7 +149,7 @@ function FieldSeparator({ children, className, ...props }) {
       <Separator className="absolute inset-0 top-1/2" />
       {children && (
         <span
-          className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground"
+          className="relative mx-auto block w-fit bg-background px-2 text-on-surface-lighter"
           data-slot="field-separator-content"
         >
           {children}

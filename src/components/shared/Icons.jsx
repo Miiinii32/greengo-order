@@ -15,6 +15,7 @@ import {
   CircleCheckIcon,
   CircleXIcon,
   XIcon,
+  SaveIcon,
 } from 'lucide-react';
 
 export const Icons = {
@@ -32,6 +33,7 @@ export const Icons = {
   delete: TrashIcon,
   more: MoreHorizontalIcon,
   close: XIcon,
+  save: SaveIcon,
 
   // state
   success: CheckIcon,

@@ -9,15 +9,22 @@ function Input({ className, type, ...props }) {
       data-slot="input"
       className={cn(
         /* layout */
-        'w-full min-w-0 rounded-md  py-2 pr-4 pl-4.5',
+        'w-full min-w-0 rounded-md  py-2 pr-4 pl-4.5 h-10',
+
         /* style */
-        'border border-outline bg-surface text-md text-on-surface shadow-0 outline-none placeholder:text-on-surface-lighter placeholder:text-sm',
+        'border border-input bg-transparent text-md text-on-surface shadow-0 outline-none',
+
+        /* placeholder */
+        'placeholder:text-muted-foreground placeholder:text-md',
+
         /* focus, disable, aria */
-        'focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-primary/30 ',
+        'focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 ',
         'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 ',
-        'aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 ',
+        'aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20',
+
         /* dark */
         'dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40',
+
         'transition-[color,box-shadow]  file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground md:text-md ',
         className,
       )}

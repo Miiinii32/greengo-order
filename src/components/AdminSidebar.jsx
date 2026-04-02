@@ -38,7 +38,7 @@ export function AdminSidebar({ logout, ...props }) {
       </SidebarContent>
 
       {/* sidebar footer */}
-      <SidebarFooter className="h-16 flex justify-center border-t border-outline">
+      <SidebarFooter className="h-16 flex justify-center border-t border-border">
         <SidebarMenu>
           <SidebarMenuItem className="flex">
             <Buttons variant="ghost" size="lg" className="flex-1 justify-start" onClick={logout}>

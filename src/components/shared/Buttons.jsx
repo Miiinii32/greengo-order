@@ -8,13 +8,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-on-primary hover:bg-primary-dim',
+        default: 'bg-primary text-on-primary hover:bg-hover',
         outline:
-          'border border-outline-light bg-surface text-on-surface-light hover:bg-surface hover:text-primary hover:border-primary aria-expanded:bg-surface-dim aria-expanded:text-primary dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
+          'border border-border bg-surface text-on-surface-variant hover:bg-surface hover:text-primary hover:border-primary aria-expanded:bg-surface-dim aria-expanded:text-primary dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
         secondary:
-          'bg-surface-dim text-on-surface-light hover:bg-surface-dim-hover aria-expanded:bg-surface-dim aria-expanded:text-primary',
+          'bg-surface-dim text-on-surface-light hover:bg-hover aria-expanded:bg-surface-dim aria-expanded:text-primary',
         ghost:
-          'text-on-surface-light hover:text-primary hover:bg-surface-dim-hover/50 active:bg-primary active:text-on-primary focus:bg-primary focus:text-on-primary  aria-expanded:bg-surface-dim aria-expanded:text-primary dark:hover:bg-muted/60',
+          'text-on-surface-variant hover:text-primary hover:bg-hover active:bg-primary active:text-on-primary focus:bg-primary focus:text-on-primary  aria-expanded:bg-surface-dim aria-expanded:text-primary dark:hover:bg-muted/60',
         destructive:
           'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40',
         link: 'text-primary underline-offset-4 hover:underline',

@@ -60,7 +60,7 @@ export const AdminTable = ({
                 <img
                   src={item.imageUrl}
                   alt={item.title}
-                  className="bg-primary size-12 rounded-sm border border-outline-light object-cover hover:scale-110 transition-transform cursor-zoom-in"
+                  className="bg-primary size-12 rounded-sm border border-border-variant object-cover hover:scale-110 transition-transform cursor-zoom-in"
                 />
               </div>
             </TableCell>

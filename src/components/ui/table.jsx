@@ -18,7 +18,7 @@ function TableHeader({ className, ...props }) {
   return (
     <thead
       data-slot="table-header"
-      className={cn('[&_tr]:border-b [&_tr]:border-outline bg-surface-dim/90', className)}
+      className={cn('[&_tr]:border-b [&_tr]:border-border bg-surface-dim/90', className)}
       {...props}
     />
   );
@@ -49,7 +49,7 @@ function TableRow({ className, ...props }) {
     <tr
       data-slot="table-row"
       className={cn(
-        'px-12 border-b border-outline-light hover:bg-surface-hover/50 data-[state=selected]:bg-primary/20',
+        'px-12 border-b border-border-variant hover:bg-hover/30 data-[state=selected]:bg-primary/20',
         className,
       )}
       {...props}

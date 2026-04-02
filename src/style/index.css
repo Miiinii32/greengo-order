@@ -8,39 +8,35 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Shadcn 原始設定 */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.4603 0.1406 143.37);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* 設計稿 seematic design 設定 */
+  --primary: var(--primary-500);
+  --on-primary: var(--neutral-white);
+  --primary-container: var(--primary-100);
+  --primary-dim: var(--primary-600);
+  --on-primary-dim: var(--neutral-white);
+  --secondary: var(--secondary-500);
+  --on-secondary: var(--neutral-700);
+  --secondary-container: var(--secondary-200);
+  --accent: var(--accent-primary);
+  --on-accent: var(--neutral-700);
+  --error: var(--function-error-dark);
+  --on-error: var(--neutral-white);
+  --error-container: var(--function-error-light);
+  --success: var(--function-success-dark);
+  --on-success: var(--neutral-white);
+  --success-container: var(--function-success-light);
+  --info: var(--function-info-dark);
+  --on-info: var(--neutral-white);
+  --info-container: var(--function-info-light);
+  --surface: var(--neutral-white);
+  --hover: color-mix(in srgb, var(--on-surface), transparent 94%);
+  --on-surface: var(--neutral-black);
+  --on-surface-variant: var(--neutral-600);
+  --on-surface-lighter: var(--neutral-500);
+  --surface-dim: var(--neutral-200);
+  --surface-lighter: var(--neutral-100);
+  --outline: var(--neutral-400);
+  --outline-variant: var(--neutral-300);
 }
 
 .dark {
@@ -78,66 +74,7 @@
 }
 
 @theme inline {
-  --font-sans: 'Inter Variable', sans-serif;
-
-  /* primary color */
-  --color-primary: var(--primary-500);
-  --color-primary-dim: var(--primary-600);
-  --color-on-primary: var(--neutral-white);
-  --color-primary-container: var(--primary-100);
-  --color-on-primary-container: var(--primary-500);
-
-  /* secondary color */
-  --color-secondary: var(--secondary-400);
-  --color-on-secondary: var(--neutral-700);
-  --color-secondary-container: var(--secondary-200);
-  --color-on-secondary-container: var(--secondary-600);
-
-  /* accent color */
-  --color-accent: var(--accent-primary);
-  --color-on-accent: var(--neutral-700);
-
-  /* function color */
-  --color-error: var(--function-error-dark);
-  --color-on-error: var(--neutral-white);
-  --color-error-container: var(--function-error-light);
-  --color-on-error-container: var(--function-error-dark);
-  --color-success: var(--function-success-dark);
-  --color-on-success: var(--neutral-white);
-  --color-success-container: var(--function-success-light);
-  --color-on-success-container: var(--function-success-dark);
-  --color-info: var(--function-info-dark);
-  --color-on-info: var(--neutral-white);
-  --color-info-container: var(--function-info-light);
-  --color-on-info-container: var(--function-info-dark);
-
-  /* surface color */
-  --color-surface: var(--neutral-white);
-  --color-surface-hover: color-mix(in srgb, var(--color-neutral-100), transparent 20%);
-  --color-on-surface: var(--neutral-black);
-  --color-on-surface-light: var(--neutral-600);
-  --color-on-surface-lighter: var(--neutral-400);
-
-  --color-surface-dim: var(--neutral-200);
-  --color-surface-dim-hover: var(--neutral-300);
-  --color-on-surface-dim: var(--neutral-black);
-  --color-on-surface-dim-variant: var(--neutral-600);
-
-  --color-surface-light: var(--neutral-100);
-  --color-surface-light-hover: var(--neutral-200);
-  --color-on-surface-light: var(--neutral-600);
-  --color-on-surface-light-light: var(--neutral-400);
-
-  /* outline color */
-  --color-outline: var(--neutral-400);
-  --color-outline-light: var(--neutral-300);
-  --color-outline-primary: var(--primary-500);
-
-  /* chart color */
-  --color-chart-1: var(--function-error-dark); /* 蛋白量 */
-  --color-chart-2: var(--primary-500); /* 碳水量 */
-  --color-chart-3: var(--secondary-600); /* 脂肪量 */
-
+  /* 設計稿設定 */
   /* radius */
   --radius-none: var(--rounded-none);
   --radius-xs: var(--rounded-xs);
@@ -166,51 +103,81 @@
   --text-md: var(--fs-md);
   --text-sm: var(--fs-sm);
 
-  /* line height */
+  /* line height, letter-spacing */
   --leading-md: var(--lh-md);
   --leading-sm: var(--lh-sm);
-
-  /* letter-spacing */
   --tracking-lg: var(--ls-lg);
   --tracking-md: var(--ls-md);
 
   /* shadow */
   --shadow-card: var(--shadow-down-sm);
 
-  /* shadcn tokens*/
-  --color-ring: var(--ring);
-  --color-border: var(--color-outline);
-  --color-muted: var(--color-surface-dim);
-  --color-muted-foreground: var(--color-on-surface-light);
-  --color-popover-foreground: var(--color-on-surface-light);
-
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-
-  /* --color-ring: var(--ring); */
-  --color-input: var(--input);
-
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--color-primary);
-  /* --color-accent: var(--accent); */
-
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-primary-dim: var(--primary-dim);
   --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-container: var(--secondary-container);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-error: var(--error);
+  --color-on-error: var(--on-error);
+  --color-error-container: var(--error-container);
+  --color-success: var(--success);
+  --color-on-success: var(--on-success);
+  --color-success-container: var(--success-container);
+  --color-info: var(--info);
+  --color-on-info: var(--on-info);
+  --color-info-container: var(--info-container);
+  --color-surface: var(--surface);
+  --color-hover: var(--hover);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-on-surface-lighter: var(--on-surface-lighter);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-light: var(--surface-light);
 
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
+  /* shadcn 元件設定 */
+  --color-background: var(--surface);
+  --color-foreground: var(--on-surface);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--on-surface);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--on-surface-variant);
+  /* --color-primary: var(--primary); */
+  --color-primary-foreground: var(--on-primary);
+  /* --color-secondary: var(--secondary); */
+  --color-secondary-foreground: var(--on-secondary);
+  --color-muted: oklch(0.97 0 0);
+  --color-muted-foreground: color-mix(in srgb, var(--color-on-surface), transparent 70%);
+  --color-accent: oklch(0.97 0 0);
+  --color-accent-foreground: var(--primary);
+  --color-destructive: var(--error);
+  --color-border: var(--outline);
+  --color-border-variant: var(--outline-variant); /* 自訂 */
+  --color-input: var(--outline);
+  --color-ring: color-mix(in srgb, var(--on-surface), transparent 80%);
+  --color-ring-primary: color-mix(in srgb, var(--primary), transparent 75%); /* 自訂 */
+  --color-ring-destructive: color-mix(in srgb, var(--error), transparent 80%); /* 自訂 */
+  --color-chart-1: var(--error); /* 蛋白質 */
+  --color-chart-2: var(--primary); /* 碳水量 */
+  --color-chart-3: var(--secondary); /* 脂肪量 */
+  --color-title: color-mix(in srgb, var(--color-on-surface), transparent 0%); /* 自訂 */
+  --color-subtitle: color-mix(in srgb, var(--color-on-surface), transparent 30%); /* 自訂 */
+  --color-subtitle-variant: color-mix(in srgb, var(--color-on-surface), transparent 50%); /* 自訂 */
+
+  /* --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  */
 }
 
 @layer base {
@@ -223,47 +190,36 @@
   html {
     @apply font-sans;
   }
-  display-1 {
+  display-1,
+  .display-1 {
     @apply text-6xl font-semibold leading-sm;
   }
-  h1 {
+  h1,
+  .h1 {
     @apply text-5xl font-semibold leading-sm;
   }
-  h2 {
+  h2,
+  .h2 {
     @apply text-4xl font-semibold leading-sm;
   }
-  h3 {
+  h3,
+  .h3 {
     @apply text-3xl font-semibold leading-sm;
   }
-  h4 {
+  h4,
+  .h4 {
     @apply text-2xl font-semibold leading-sm;
   }
-  h5 {
+  h5,
+  .h5 {
     @apply text-xl font-semibold leading-sm;
   }
-  h6 {
-    @apply text-lg font-semibold leading-sm text-on-surface;
-  }
-  .display-1 {
-    @apply text-6xl font-semibold leading-sm text-on-surface;
-  }
-  .h1 {
-    @apply text-5xl font-semibold leading-sm text-on-surface;
-  }
-  .h2 {
-    @apply text-4xl font-semibold leading-sm text-on-surface;
-  }
-  .h3 {
-    @apply text-3xl font-semibold leading-sm text-on-surface;
-  }
-  .h4 {
-    @apply text-2xl font-semibold leading-sm text-on-surface;
-  }
-  .h5 {
-    @apply text-xl font-semibold leading-sm text-on-surface;
-  }
+  h6,
   .h6 {
     @apply text-lg font-semibold leading-sm text-on-surface;
+  }
+  p {
+    @apply text-md font-normal leading-md text-on-surface;
   }
   .body-1 {
     @apply text-lg font-normal leading-md text-on-surface;
@@ -282,8 +238,5 @@
   }
   .body-3-emphasis {
     @apply text-sm font-medium leading-md text-on-surface;
-  }
-  .border-default {
-    @apply border border-outline;
   }
 }

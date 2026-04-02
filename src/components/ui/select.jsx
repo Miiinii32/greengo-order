@@ -30,16 +30,29 @@ function SelectTrigger({ className, size = 'default', children, ...props }) {
       className={cn(
         /* layout */
         'flex w-fit items-center justify-between gap-2 py-2 pr-4 pl-4.5 rounded-md ',
+
         /* style */
-        'border border-outline bg-surface text-on-surface shadow-0 text-md  whitespace-nowrap transition-[color,box-shadow] outline-none',
+        'border border-input bg-transparent text-on-surface shadow-0 text-md  whitespace-nowrap outline-none',
+
         /* focus, disable, aria */
-        'focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20',
+        'focus:border-ring focus:ring-3 focus:ring-ring/50 ',
+        'focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 ',
+        'disabled:cursor-not-allowed disabled:opacity-50',
+        'aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20',
+
         /* svg */
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+
         /* data- */
-        'data-placeholder:text-muted-foreground data-[size=default]:h-11 data-[size=sm]:h-9 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5',
+        'data-placeholder:text-muted-foreground',
+        'data-[size=default]:h-10 data-[size=sm]:h-9',
+        '*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5',
+
         /* dark */
         'dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40',
+
+        /* transition */
+        'transition-[color,box-shadow]',
         className,
       )}
       {...props}
@@ -66,11 +79,17 @@ function SelectContent({
         data-align-trigger={position === 'item-aligned'}
         className={cn(
           /* layout */
-          'relative z-50 max-h-(--radix-select-content-available-height) min-w-36 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md py-2 px-1.5 mt-2',
+          'relative z-50 max-h-(--radix-select-content-available-height) min-w-36 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md py-1 px-0.5 ',
+
           /* style */
-          'bg-surface text-on-surface-light shadow-md ring-1 ring-foreground/10 duration-100 border border-outline data-[align-trigger=true]:animate-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+          'bg-popover text-popover-foreground shadow-md duration-100 border border-border',
+
+          /* data- */
+          'data-[align-trigger=true]:animate-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+
           /* animation */
           'data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
+
           position === 'popper' &&
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className,
@@ -112,10 +131,13 @@ function SelectItem({ className, children, ...props }) {
       className={cn(
         /* layout */
         'relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 px-4  select-none',
+
         /* style */
         'text-md outline-hidden',
+
         /* focus, disable */
         'focus:bg-primary-container focus:text-primary not-data-[variant=destructive]:focus:**:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 ',
+
         /* syg */
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
