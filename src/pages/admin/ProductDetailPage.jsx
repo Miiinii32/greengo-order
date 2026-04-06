@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { Buttons } from '@/components/shared/Buttons';
 import { OneGroupSelects } from '@/components/shared/Selects';
@@ -25,11 +26,15 @@ import {
   FieldSeparator,
   FieldSet,
 } from '@/components/ui/field';
-import { SELECT_OPTIONS } from '@/config/admin/selectOptions';
-import { CHECKBOX_OPTIONS } from '@/config/admin/checkboxOptions';
-import { useEffect } from 'react';
-import get from 'lodash/get';
+import {
+  PRODUCTS_CATEGORY_SELECT,
+  PRODUCTS_TYPE_SELECT,
+  VEGETARIAN_SELECT,
+} from '@/config/admin/selectOptions';
+import { SUITABLE_TYPE_TAG, ALLERGEN_TAG } from '@/config/admin/checkboxOptions';
+
 import { Label } from '@/components/ui/label';
+import { POSTsingleProduct, PUTsingleProduct } from '@/api/adminApi';
 
 /* InputField component */
 const InputField = ({
@@ -54,18 +59,16 @@ const InputField = ({
   const currentValue = useWatch({
     control,
     name: dataKeyId,
+    defaultValue: fieldId === 'costCapacity' ? 100 : fieldId === 'unit' ? '份' : '---',
   });
   return (
     <Field>
-      <FieldLabel htmlFor={fieldId}>
+      <FieldLabel htmlFor={isReadOnly ? undefined : fieldId}>
         {fieldText}
         {isRequired && <span className="text-error text-md">*</span>}
       </FieldLabel>
       {isReadOnly ? (
-        <div>
-          <p>{currentValue ?? '---'}</p>
-          <Input type="hidden" id={fieldId} {...register(dataKeyId, extendedRules)} />
-        </div>
+        <p>{currentValue}</p>
       ) : (
         <Input
           type={fieldType}
@@ -104,24 +107,23 @@ const SwitchField = ({ control, errors, fieldText, fieldId }) => {
 /* select component */
 const SelectField = ({ control, errors, fieldText, fieldId, selectContent, fieldRules }) => {
   const isRequired = !!fieldRules?.required;
-
   return (
     <Field>
       <FieldLabel htmlFor={fieldId}>
         {fieldText}
         {isRequired && <span className="text-error text-md">*</span>}
       </FieldLabel>
-
       <Controller
         name={fieldId}
         control={control}
         rules={fieldRules}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <OneGroupSelects
-            type="hidden"
+            id={fieldId}
             content={selectContent}
             value={field.value}
             onValueChange={field.onChange}
+            aria-invalid={!!error}
           />
         )}
       />
@@ -166,7 +168,21 @@ const CheckboxField = ({ control, fieldText, fieldId, checkboxContent }) => {
   );
 };
 
-export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent }) => {
+const defaultImageUrl =
+  'https://storage.googleapis.com/vue-course-api.appspot.com/greengo/1775233794775.png';
+
+export const ProductDetailPage = ({
+  isOpenModal,
+  onOpenChange,
+  productContent,
+  modalType,
+  defaultContent,
+  getProducts,
+}) => {
+  /* 根據 modalType 決定 reset 的資料 */
+  const currentFormContent = modalType === 'create' ? defaultContent : productContent;
+
+  /* useForm 設定 */
   const {
     register,
     handleSubmit,
@@ -174,44 +190,66 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
     formState: { errors },
     control,
   } = useForm({
-    defaultValues: {
-      stockQuantity: 0,
-      isEnabled: false,
-      imageUrl: '',
-      title: '',
-      unit: '份',
-      description: '',
-      type: '',
-      costPrice: 0,
-      costCapacity: 100,
-      costNutrition: {
-        calories: 0,
-        protein: 0,
-        carbs: 0,
-        fat: 0,
-      },
-      price: 0,
-      capacity: 0,
-      suitableTypeTag: [],
-      allergenTag: [],
-    },
+    defaultValues: currentFormContent,
   });
 
-  useEffect(() => {
-    reset(productContent);
-  }, [reset, productContent]);
+  /* submit 前篩整理送出資料 */
+  const formatSubmitData = (data = {}) => {
+    const { id: _id, num: _num, ...rest } = data; // 將不使用的變數改名為 _id, _num(ESLint不報錯)
 
-  const postProduct = (data) => {
-    const resultProductContent = { ...data, originPrice: 0 };
-    console.log(resultProductContent);
-    console.log(productContent);
+    return {
+      ...rest,
+      suitableTypeTag: rest.suitableTypeTag ?? [],
+      allergenTag: rest.allergenTag ?? [],
+      originPrice: 0,
+    };
+  };
+
+  const postSingleProduct = async (data) => {
+    try {
+      await POSTsingleProduct(data);
+      onOpenChange(false);
+      alert('新增產品成功');
+    } catch (error) {
+      console.error(error);
+      alert('新增產品失敗');
+    }
+  };
+
+  const putSingleProduct = async (id, data) => {
+    try {
+      await PUTsingleProduct(id, data);
+      onOpenChange(false);
+      alert('更新產品成功');
+    } catch (error) {
+      console.error(error);
+      alert('更新產品失敗');
+    }
+  };
+
+  /* cancel 方法 */
+  const cancelProduct = () => {
+    modalType === 'create' ? reset(defaultContent) : reset(productContent);
+    onOpenChange(false);
+  };
+
+  /* submit 方法 */
+  const postProduct = async (data) => {
+    modalType === 'create'
+      ? await postSingleProduct(formatSubmitData(data))
+      : await putSingleProduct(productContent.id, formatSubmitData(data));
+
+    getProducts();
+
+    // console.log(resultProductContent);
+    // console.log(productContent);
   };
 
   /* 監聽營養素讓左側頁面自動計算 */
-  const caloriesValue = useWatch({ control, name: 'costNutrition.calories' });
-  const proteinValue = useWatch({ control, name: 'costNutrition.protein' });
-  const carbsValue = useWatch({ control, name: 'costNutrition.carbs' });
-  const fatValue = useWatch({ control, name: 'costNutrition.fat' });
+  const calories = useWatch({ control, name: 'costNutrition.calories' });
+  const proteinGrams = useWatch({ control, name: 'costNutrition.proteinGrams' });
+  const carbsGrams = useWatch({ control, name: 'costNutrition.carbsGrams' });
+  const fatGrams = useWatch({ control, name: 'costNutrition.fatGrams' });
   const imageUrl = useWatch({ control, name: 'imageUrl' });
   const costPrice = useWatch({ control, name: 'costPrice' });
   const costCapacity = useWatch({ control, name: 'costCapacity' });
@@ -222,25 +260,26 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
       <DialogContent
         showCloseButton={false}
         className="rounded-xl sm:max-w-250 bg-surface p-0 overflow-hidden gap-0"
+        onPointerDownOutside={(e) => {
+          e.preventDefault();
+        }}
       >
         {/* dialog header */}
         <DialogHeader className="pt-5 pb-1 px-8 bg-surface">
           <DialogTitle className="flex justify-between items-center">
             <div className="flex gap-3 items-center">
-              <span className="text-lg font-semibold text-on-surface">編輯食材</span>
-              <p className="text-md text-primary font-medium">{productContent?.id}</p>
+              <span className="text-lg font-semibold text-on-surface">
+                {modalType === 'create' ? '新增產品' : '編輯產品'}
+              </span>
+              <p className="text-md text-on-surface-variant font-medium">{productContent?.id}</p>
             </div>
             <div className="flex gap-3">
-              <DialogClose asChild>
-                <Buttons variant="secondary" size="lg">
-                  取消
-                </Buttons>
-              </DialogClose>
-              <DialogClose asChild>
-                <Buttons variant="default" size="lg" type="submit" form="ingredients">
-                  儲存
-                </Buttons>
-              </DialogClose>
+              <Buttons variant="secondary" size="lg" onClick={cancelProduct}>
+                取消
+              </Buttons>
+              <Buttons variant="default" size="lg" type="submit" form="ingredients">
+                儲存
+              </Buttons>
             </div>
           </DialogTitle>
           <DialogDescription className="sr-only">
@@ -255,6 +294,7 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
               {/* ---- 左側自動計算區 ---- */}
               <FieldSet>
                 <FieldLegend>自動計算區</FieldLegend>
+                <FieldDescription>即時彙整營養數據，同步呈現動態視覺化圖表</FieldDescription>
                 <FieldGroup className="flex-col gap-8">
                   {/* <Field>
                     <FieldLabel>總金額</FieldLabel>
@@ -267,10 +307,10 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
                   <Field>
                     <FieldLabel htmlFor="stockQuantity">計算營養素</FieldLabel>
                     <DonutChart
-                      caloriesValue={caloriesValue}
-                      proteinValue={proteinValue}
-                      carbsValue={carbsValue}
-                      fatValue={fatValue}
+                      calories={calories}
+                      proteinGrams={proteinGrams}
+                      carbsGrams={carbsGrams}
+                      fatGrams={fatGrams}
                     />
                   </Field>
                 </FieldGroup>
@@ -284,30 +324,28 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
                 <FieldSet>
                   <FieldLegend>庫存與上架</FieldLegend>
                   <FieldDescription>調整庫存與上架前台供點餐與否</FieldDescription>
-                  <FieldGroup className="flex-col gap-5">
-                    <div className="flex gap-8">
-                      {/* 庫存量 stockQuantity */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={false}
-                        fieldText="庫存量"
-                        fieldType="number"
-                        fieldId="stockQuantity"
-                        dataKeyId="stockQuantity"
-                        placeholder="請輸入目前庫存量"
-                        fieldRules={{ required: '必填' }}
-                      />
+                  <FieldGroup className="grid grid-cols-2 gap-x-8 gap-y-5">
+                    {/* 庫存量 stockQuantity */}
+                    <InputField
+                      register={register}
+                      errors={errors}
+                      control={control}
+                      isReadOnly={false}
+                      fieldText="庫存量"
+                      fieldType="number"
+                      fieldId="stockQuantity"
+                      dataKeyId="stockQuantity"
+                      placeholder="請輸入目前庫存量"
+                      fieldRules={{ required: '必填' }}
+                    />
 
-                      {/* 是否上架 isEnabled */}
-                      <SwitchField
-                        control={control}
-                        errors={errors}
-                        fieldText="是否上架"
-                        fieldId="isEnabled"
-                      />
-                    </div>
+                    {/* 是否上架 isEnabled */}
+                    <SwitchField
+                      control={control}
+                      errors={errors}
+                      fieldText="是否上架"
+                      fieldId="isEnabled"
+                    />
                   </FieldGroup>
                 </FieldSet>
 
@@ -316,8 +354,9 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
                 {/* 基本設定 */}
                 <FieldSet>
                   <FieldLegend>基本設定</FieldLegend>
-                  <FieldGroup className="flex-col gap-5">
-                    <div className="flex gap-8">
+                  <FieldDescription>產品相關的基本設定</FieldDescription>
+                  <FieldGroup>
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-5">
                       {/* 產品名稱 title */}
                       <InputField
                         register={register}
@@ -328,13 +367,12 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
                         fieldType="text"
                         fieldId="title"
                         dataKeyId="title"
-                        placeholder="請輸入目前庫存量"
+                        placeholder="請輸入產品名稱"
                         fieldRules={{
                           required: '必填',
                           maxLength: { value: 5, message: '產品名稱最多5個字' },
                         }}
                       />
-
                       {/* 單位 unit */}
                       <InputField
                         register={register}
@@ -349,63 +387,65 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
                           required: '必填',
                         }}
                       />
-                    </div>
-                    <div className="flex gap-8">
-                      {/* 產品介紹 description */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={false}
-                        fieldText="產品介紹"
-                        fieldType="text"
-                        fieldId="description"
-                        dataKeyId="description"
-                        placeholder="請輸入產品介紹"
-                        fieldRules={{
-                          maxLength: { value: 10, message: '產品名介紹不得超過10個字' },
-                        }}
-                      />
-                    </div>
-                    <div className="flex gap-8">
                       {/* 分類 category */}
                       <SelectField
                         errors={errors}
                         control={control}
                         fieldText="產品分類"
                         fieldId="category"
-                        selectContent={SELECT_OPTIONS.products.category}
+                        selectContent={PRODUCTS_CATEGORY_SELECT}
                         fieldRules={{ required: '必填' }}
                       />
-
                       {/* 類別 type */}
                       <SelectField
                         errors={errors}
                         control={control}
                         fieldText="產品類別"
                         fieldId="type"
-                        selectContent={SELECT_OPTIONS.products.ingredients.type}
+                        selectContent={PRODUCTS_TYPE_SELECT.ingredients}
                         fieldRules={{ required: '必填' }}
                       />
-                    </div>
-                    <div className="flex gap-8">
+                      {/* 產品介紹 description */}
+                      <div className="col-span-2">
+                        <InputField
+                          register={register}
+                          errors={errors}
+                          control={control}
+                          isReadOnly={false}
+                          fieldText="產品介紹"
+                          fieldType="text"
+                          fieldId="description"
+                          dataKeyId="description"
+                          placeholder="請輸入產品介紹"
+                          fieldRules={{
+                            maxLength: { value: 10, message: '產品名介紹不得超過10個字' },
+                          }}
+                        />
+                      </div>
                       {/* 上傳圖片 imageUrl */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={false}
-                        fieldText="上傳圖片"
-                        fieldType="text"
-                        fieldId="imageUrl"
-                        dataKeyId="imageUrl"
-                        placeholder="請輸入圖片網址"
-                      />
-                    </div>
-                    <div>
+                      <div className="col-span-2">
+                        <InputField
+                          register={register}
+                          errors={errors}
+                          control={control}
+                          isReadOnly={false}
+                          fieldText="上傳圖片"
+                          fieldType="text"
+                          fieldId="imageUrl"
+                          dataKeyId="imageUrl"
+                          placeholder="請輸入圖片網址"
+                        />
+                      </div>
                       {/* 圖片展示 */}
-                      <img src={imageUrl} alt="產品圖片" className="rounded-lg" />
+                      <div className="col-span-2">
+                        <img
+                          src={imageUrl ? imageUrl : defaultImageUrl}
+                          alt="產品圖片"
+                          className="rounded-lg"
+                        />
+                      </div>
                     </div>
+                    <div className="grid grid-cols-1 gap-x-8 gap-y-5"></div>
                   </FieldGroup>
                 </FieldSet>
 
@@ -415,108 +455,102 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
                 <FieldSet>
                   <FieldLegend>成本設定</FieldLegend>
                   <FieldDescription>數值均以基本份量為統計基準</FieldDescription>
-                  <FieldGroup className="flex-col gap-5">
-                    <div className="flex gap-8">
-                      {/* 成本價格 costPrice */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={false}
-                        fieldText="成本價格"
-                        fieldType="number"
-                        fieldId="costPrice"
-                        dataKeyId="costPrice"
-                        placeholder="請輸入每100g的成本價"
-                        fieldRules={{
-                          required: '必填',
-                          min: {
-                            value: 0,
-                            message: '金額不可低於0元',
-                          },
-                        }}
-                      />
-                      {/* 基本份量 costCapacity */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={true}
-                        fieldText="基本份量(g)"
-                        fieldType="number"
-                        fieldId="costCapacity"
-                        dataKeyId="costCapacity"
-                        fieldRules={{ required: '必填' }}
-                      />
-                    </div>
-                    <div className="flex gap-8">
-                      {/* 熱量 calories */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={false}
-                        fieldText="熱量(g)"
-                        fieldType="number"
-                        specialNumberStep="0.1"
-                        fieldId="calories"
-                        dataKeyId="costNutrition.calories"
-                        placeholder="請輸入每100g的食材熱量"
-                        fieldRules={{
-                          required: '必填',
-                        }}
-                      />
-                      {/* 蛋白量 protein */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={false}
-                        fieldText="蛋白量(g)"
-                        fieldType="number"
-                        specialNumberStep="0.1"
-                        fieldId="protein"
-                        dataKeyId="costNutrition.protein"
-                        placeholder="請輸入每100g的蛋白量"
-                        fieldRules={{
-                          required: '必填',
-                        }}
-                      />
-
-                      {/* 碳水量 carbs */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={false}
-                        fieldText="碳水量(g)"
-                        fieldType="number"
-                        specialNumberStep="0.1"
-                        fieldId="carbs"
-                        dataKeyId="costNutrition.carbs"
-                        placeholder="請輸入每100g的食材碳水量"
-                        fieldRules={{
-                          required: '必填',
-                        }}
-                      />
-
-                      {/* 脂肪量 fat */}
-                      <InputField
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        isReadOnly={false}
-                        fieldText="脂肪量(g)"
-                        fieldType="number"
-                        specialNumberStep="0.1"
-                        fieldId="fat"
-                        dataKeyId="costNutrition.fat"
-                        placeholder="請輸入每100g的脂肪量"
-                        fieldRules={{
-                          required: '必填',
-                        }}
-                      />
-                    </div>
+                  <FieldGroup className="grid grid-cols-2 gap-x-8 gap-y-5">
+                    {/* 成本價格 costPrice */}
+                    <InputField
+                      register={register}
+                      errors={errors}
+                      control={control}
+                      isReadOnly={false}
+                      fieldText="成本價格"
+                      fieldType="number"
+                      fieldId="costPrice"
+                      dataKeyId="costPrice"
+                      placeholder="請輸入每100g的成本價"
+                      fieldRules={{
+                        required: '必填',
+                        min: {
+                          value: 0,
+                          message: '金額不可低於0元',
+                        },
+                      }}
+                    />
+                    {/* 基本份量 costCapacity */}
+                    <InputField
+                      register={register}
+                      errors={errors}
+                      control={control}
+                      isReadOnly={true}
+                      fieldText="基本份量(g)"
+                      fieldType="number"
+                      fieldId="costCapacity"
+                      dataKeyId="costCapacity"
+                      fieldRules={{ required: '必填' }}
+                    />
+                    {/* 熱量 calories */}
+                    <InputField
+                      register={register}
+                      errors={errors}
+                      control={control}
+                      isReadOnly={false}
+                      fieldText="熱量(g)"
+                      fieldType="number"
+                      specialNumberStep="0.1"
+                      fieldId="calories"
+                      dataKeyId="costNutrition.calories"
+                      placeholder="請輸入每100g的食材熱量"
+                      fieldRules={{
+                        required: '必填',
+                      }}
+                    />
+                    {/* 蛋白量 protein */}
+                    <InputField
+                      register={register}
+                      errors={errors}
+                      control={control}
+                      isReadOnly={false}
+                      fieldText="蛋白量(g)"
+                      fieldType="number"
+                      specialNumberStep="0.1"
+                      fieldId="proteinGrams"
+                      dataKeyId="costNutrition.proteinGrams"
+                      placeholder="請輸入每100g的蛋白量"
+                      fieldRules={{
+                        required: '必填',
+                      }}
+                    />
+                    {/* 碳水量 carbsGrams */}
+                    <InputField
+                      register={register}
+                      errors={errors}
+                      control={control}
+                      isReadOnly={false}
+                      fieldText="碳水量(g)"
+                      fieldType="number"
+                      specialNumberStep="0.1"
+                      fieldId="carbsGrams"
+                      dataKeyId="costNutrition.carbsGrams"
+                      placeholder="請輸入每100g的食材碳水量"
+                      fieldRules={{
+                        required: '必填',
+                      }}
+                    />
+                    {/* 脂肪量 fatGrams */}
+                    <InputField
+                      register={register}
+                      errors={errors}
+                      control={control}
+                      isReadOnly={false}
+                      fieldText="脂肪量(g)"
+                      fieldType="number"
+                      specialNumberStep="0.1"
+                      fieldId="fatGrams"
+                      dataKeyId="costNutrition.fatGrams"
+                      placeholder="請輸入每100g的脂肪量"
+                      fieldRules={{
+                        required: '必填',
+                      }}
+                    />
                   </FieldGroup>
                 </FieldSet>
 
@@ -526,53 +560,49 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
                 <FieldSet>
                   <FieldLegend>上架設定</FieldLegend>
                   <FieldDescription>此金額與份量將作為 Poke 碗組裝時的計算基準</FieldDescription>
-                  <FieldGroup className="flex-col gap-5">
-                    <div className="flex gap-8">
-                      <div className="w-1/2">
-                        {/* 上架售價 price */}
-                        <InputField
-                          register={register}
-                          errors={errors}
-                          control={control}
-                          isReadOnly={false}
-                          fieldText="上架售價"
-                          fieldType="number"
-                          fieldId="price"
-                          dataKeyId="price"
-                          placeholder="請輸入上架售價"
-                          fieldRules={{
-                            required: '必填',
-                            min: {
-                              value: 0,
-                              message: '金額不得小於零',
-                            },
-                          }}
-                        />
-                        <p className="text-sm text-primary mt-1">
-                          建議上架售價：{(costPrice / costCapacity) * capacity * 3} 元
-                        </p>
-                      </div>
-                      <div className="w-1/2">
-                        {/* 上架份量 capacity */}
-                        <InputField
-                          register={register}
-                          errors={errors}
-                          control={control}
-                          isReadOnly={false}
-                          fieldText="上架份量(g)"
-                          fieldType="number"
-                          fieldId="capacity"
-                          dataKeyId="capacity"
-                          placeholder="請輸入上架份量"
-                          fieldRules={{
-                            required: '必填',
-                            min: {
-                              value: 0,
-                              message: '份量不得小於零',
-                            },
-                          }}
-                        />
-                      </div>
+                  <FieldGroup className="grid grid-cols-2 gap-x-8 gap-y-5">
+                    {/* 上架份量 capacity */}
+                    <InputField
+                      register={register}
+                      errors={errors}
+                      control={control}
+                      isReadOnly={false}
+                      fieldText="上架份量(g)"
+                      fieldType="number"
+                      fieldId="capacity"
+                      dataKeyId="capacity"
+                      placeholder="請輸入上架份量"
+                      fieldRules={{
+                        required: '必填',
+                        min: {
+                          value: 0,
+                          message: '份量不得小於零',
+                        },
+                      }}
+                    />
+                    <div>
+                      {/* 上架售價 price */}
+                      <InputField
+                        register={register}
+                        errors={errors}
+                        control={control}
+                        isReadOnly={false}
+                        fieldText="上架售價"
+                        fieldType="number"
+                        fieldId="price"
+                        dataKeyId="price"
+                        placeholder="請輸入上架售價"
+                        fieldRules={{
+                          required: '必填',
+                          min: {
+                            value: 0,
+                            message: '金額不得小於零',
+                          },
+                        }}
+                      />
+                      <p className="text-sm text-primary mt-1">
+                        建議上架售價：{((costPrice / costCapacity) * capacity * 3).toFixed()} 元
+                      </p>
                     </div>
                   </FieldGroup>
                 </FieldSet>
@@ -586,30 +616,34 @@ export const ProductDetailPage = ({ isOpenModal, onOpenChange, productContent })
                     - 類別標籤: 用於 Poke 碗推薦分類（如輕食、高蛋白...）
                     <br />- 過敏標籤: 紀錄食材過敏內容
                   </FieldDescription>
+                  <FieldGroup className="grid grid-cols-1 gap-x-8 gap-y-5">
+                    {/* 類別標籤 suitableTypeTag */}
+                    {/* <CheckboxField
+                      control={control}
+                      fieldText="類別標籤"
+                      fieldId="suitableTypeTag"
+                      checkboxContent={SUITABLE_TYPE_TAG.options}
+                    /> */}
 
-                  <FieldGroup className="flex-col gap-5">
-                    <div className="flex gap-8">
-                      {/* 類別標籤 suitableTypeTag */}
-                      <CheckboxField
+                    {/* 素食標籤 VegetarianTag */}
+                    <div className="w-1/2">
+                      <SelectField
+                        errors={errors}
                         control={control}
-                        fieldText="類別標籤"
-                        fieldId="suitableTypeTag"
-                        checkboxContent={
-                          CHECKBOX_OPTIONS.products.ingredients.suitableTypeTag.options
-                        }
+                        fieldText="素食標籤"
+                        fieldId="VegetarianTag"
+                        selectContent={VEGETARIAN_SELECT}
+                        fieldRules={{ required: '必填' }}
                       />
                     </div>
-                  </FieldGroup>
-                  <FieldGroup className="flex-col gap-5">
-                    <div className="flex gap-8">
-                      {/* 過敏標籤 allergenTag */}
-                      <CheckboxField
-                        control={control}
-                        fieldText="過敏標籤"
-                        fieldId="allergenTag"
-                        checkboxContent={CHECKBOX_OPTIONS.products.ingredients.allergenTag.options}
-                      />
-                    </div>
+
+                    {/* 過敏標籤 allergenTag */}
+                    <CheckboxField
+                      control={control}
+                      fieldText="過敏標籤"
+                      fieldId="allergenTag"
+                      checkboxContent={ALLERGEN_TAG.options}
+                    />
                   </FieldGroup>
                 </FieldSet>
 

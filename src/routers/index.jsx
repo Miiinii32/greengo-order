@@ -6,11 +6,9 @@ import { CheckoutPage } from '@/pages/front/CheckoutPage';
 import { CheckoutResultPage } from '@/pages/front/CheckoutResultPage';
 import { AdminLayout } from '@/layout/admin/AdminLayout';
 import { OrderPage } from '@/pages/admin/OrderPage';
-import { IngredientsPage } from '@/pages/admin/IngredientsPage';
-import { FixedPokesPage } from '@/pages/admin/FixedPokesPage';
-import { OtherProductsPage } from '@/pages/admin/OtherProductsPage';
 import { LoginPage } from '@/pages/admin/LoginPages';
 import { OverviewPage } from '@/pages/admin/Overview';
+import { ProductsLayout } from '@/layout/admin/ProductsLayout';
 // import { TestPages } from '@/pages/testPage';
 
 const routes = [
@@ -59,19 +57,32 @@ const routes = [
             element: <Navigate to="ingredients" replace />,
           },
           {
-            path: 'ingredients',
-            element: <IngredientsPage />,
-          },
-          {
-            path: 'fixedPokes',
-            element: <FixedPokesPage />,
-          },
-          {
-            path: 'otherProducts',
-            element: <OtherProductsPage />,
+            path: ':category',
+            element: <ProductsLayout />,
           },
         ],
       },
+      // {
+      //   path: 'product',
+      //   children: [
+      //     {
+      //       index: true,
+      //       element: <Navigate to="ingredients" replace />,
+      //     },
+      //     {
+      //       path: 'ingredients',
+      //       element: <IngredientsPage />,
+      //     },
+      //     {
+      //       path: 'fixedPokes',
+      //       element: <FixedPokesPage />,
+      //     },
+      //     {
+      //       path: 'otherProducts',
+      //       element: <OtherProductsPage />,
+      //     },
+      //   ],
+      // },
     ],
   },
   // {

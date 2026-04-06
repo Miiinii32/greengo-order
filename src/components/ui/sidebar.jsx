@@ -274,7 +274,9 @@ function SidebarInset({ className, ...props }) {
     <main
       data-slot="sidebar-inset"
       className={cn(
-        'relative flex w-full flex-1 flex-col bg-surface border border-border md:peer-data-[variant=inset]:m-4 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:mr-0 md:peer-data-[variant=inset]:rounded-l-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-4 overflow-hidden',
+        'relative flex w-full flex-1 flex-col bg-surface border border-border-variant md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:mr-0 md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-4 overflow-hidden',
+        /* inset 設定 */
+        'md:peer-data-[variant=inset]:rounded-l-lg  md:peer-data-[variant=inset]:mt-2',
         className,
       )}
       {...props}

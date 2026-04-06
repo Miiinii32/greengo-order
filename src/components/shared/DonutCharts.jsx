@@ -2,13 +2,14 @@ import * as React from 'react';
 import { Pie, PieChart, Label } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { formatters } from '@/utils/formatters';
-import { Badge } from '../ui/badge';
 
-export const DonutChart = ({ caloriesValue, proteinValue, carbsValue, fatValue }) => {
+export const DonutChart = ({ calories, proteinGrams, carbsGrams, fatGrams }) => {
+  const totalValue = proteinGrams + carbsGrams + fatGrams;
+  const defaultData = [{ nutrition: 'default', value: 1, fill: 'var(--neutral-300)' }];
   const chartData = [
-    { nutrition: 'protein', value: proteinValue, fill: 'var(--color-chart-1)' },
-    { nutrition: 'carbs', value: carbsValue, fill: 'var(--color-chart-2)' },
-    { nutrition: 'fat', value: fatValue, fill: 'var(--color-chart-3)' },
+    { nutrition: 'proteinGrams', value: proteinGrams, fill: 'var(--color-chart-1)' },
+    { nutrition: 'carbsGrams', value: carbsGrams, fill: 'var(--color-chart-2)' },
+    { nutrition: 'fatGrams', value: fatGrams, fill: 'var(--color-chart-3)' },
   ];
   const chartConfig = {
     protein: {
@@ -30,7 +31,7 @@ export const DonutChart = ({ caloriesValue, proteinValue, carbsValue, fatValue }
         <PieChart>
           {/* <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} /> */}
           <Pie
-            data={chartData}
+            data={totalValue === 0 ? defaultData : chartData}
             dataKey="value"
             nameKey="nutrition"
             label={({ x, y, cx, value, nutrition }) => (
@@ -40,13 +41,13 @@ export const DonutChart = ({ caloriesValue, proteinValue, carbsValue, fatValue }
                 fill="on-surface"
                 textAnchor={x > cx ? 'start' : 'end'}
                 dominantBaseline="central"
-                className="text-xs font-mono"
+                className={totalValue === 0 ? 'hidden' : 'text-xs font-mono bg-surfce'}
               >
                 <tspan>{formatters('nutrition', nutrition)}</tspan>
                 <tspan x={x > cx ? x + 6 : x - 6} y={y + 16}>{`${value.toFixed(1)} g`}</tspan>
               </text>
             )}
-            labelLine={{ stroke: 'var(--on-surface)' }}
+            labelLine={{ stroke: totalValue === 0 ? 'var(--surface)' : 'var(--on-surface)' }}
             innerRadius={60}
             outerRadius={90}
             strokeWidth={1}
@@ -66,7 +67,7 @@ export const DonutChart = ({ caloriesValue, proteinValue, carbsValue, fatValue }
                         y={viewBox.cy}
                         className="fill-foreground text-3xl font-bold"
                       >
-                        {caloriesValue}
+                        {calories || 0}
                       </tspan>
                       <tspan
                         x={viewBox.cx}
@@ -88,13 +89,13 @@ export const DonutChart = ({ caloriesValue, proteinValue, carbsValue, fatValue }
         <div className="flex items-center justify-between py-2.5 px-6 text-md">
           <div className="flex items-center gap-2">
             <div
-              className="size-2 rounded-sm"
+              className="size-2 rounded-sm mr-2"
               style={{ backgroundColor: 'var(--color-on-surface)' }}
             />
 
             <span className="text-on-surface">總熱量</span>
           </div>
-          <span className="font-medium text-on-surface">{caloriesValue} Kcal</span>
+          <span className="font-normal text-on-surface">{calories} Kcal</span>
         </div>
         {chartData.map((item) => (
           <div
@@ -102,11 +103,10 @@ export const DonutChart = ({ caloriesValue, proteinValue, carbsValue, fatValue }
             className="flex items-center justify-between py-2.5 px-6 text-md"
           >
             <div className="flex items-center gap-2">
-              <div className="size-2 rounded-sm" style={{ backgroundColor: item.fill }} />
-              {/* <span className="text-on-surface">{chartConfig[item.nutrition].label}</span> */}
+              <div className="size-2 rounded-xs mr-2" style={{ backgroundColor: item.fill }} />
               <span className="text-on-surface">{formatters('nutrition', item.nutrition)}</span>
             </div>
-            <span className="font-medium text-on-surface">{item.value} g</span>
+            <span className="font-normal text-on-surface">{item.value} g</span>
           </div>
         ))}
       </div>

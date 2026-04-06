@@ -17,19 +17,19 @@ export const PRODUCTS_TABLE_HEADER = {
       value: 'price',
     },
     {
-      text: '上架份量',
-      value: 'capacity',
-    },
-    {
       text: '成本價',
       value: 'costPrice',
+    },
+    {
+      text: '上架份量',
+      value: 'capacity',
     },
     {
       text: '剩餘庫存',
       value: 'stockQuantity',
     },
     {
-      text: '是否上架',
+      text: '上架狀態',
       value: 'isEnabled',
     },
   ],
@@ -52,7 +52,7 @@ export const PRODUCTS_TABLE_HEADER = {
       value: 'price',
     },
     {
-      text: '上架份量(碗)',
+      text: '上架份量',
       value: 'capacity',
     },
     {
@@ -60,11 +60,11 @@ export const PRODUCTS_TABLE_HEADER = {
       value: 'content',
     },
     {
-      text: '庫存量(碗)',
+      text: '庫存量',
       value: 'stockQuantity',
     },
     {
-      text: '是否上架',
+      text: '上架狀態',
       value: 'isEnabled',
     },
   ],
@@ -86,19 +86,15 @@ export const PRODUCTS_TABLE_HEADER = {
       value: 'price',
     },
     {
-      text: '上架份量(杯)',
+      text: '上架份量',
       value: 'capacity',
     },
     {
-      text: '內容物',
-      value: 'content',
-    },
-    {
-      text: '庫存量(杯)',
+      text: '庫存量',
       value: 'stockQuantity',
     },
     {
-      text: '是否上架',
+      text: '上架狀態',
       value: 'isEnabled',
     },
   ],

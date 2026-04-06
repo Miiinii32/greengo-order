@@ -1,25 +1,21 @@
 export const FORMATTER_DATA = {
-  ingredientsType: {
+  type: {
     base: '基底',
     protein: '蛋白質',
     side: '配菜',
     sauce: '醬料',
     topping: '撒料',
-  },
-  fixedPokesType: {
     light: '輕食',
     balanced: '均衡',
-    highProtain: '高蛋白',
-  },
-  otherProductsType: {
+    highProtein: '高蛋白',
     drink: '飲品',
     soup: '湯品',
   },
   nutrition: {
     calories: '熱量',
-    protein: '蛋白量',
-    carbs: '碳水量',
-    fat: '脂肪量',
+    proteinGrams: '蛋白量',
+    carbsGrams: '碳水量',
+    fatGrams: '脂肪量',
   },
   allergenTag: {
     beef: '牛肉',
@@ -29,5 +25,14 @@ export const FORMATTER_DATA = {
     egg: '蛋',
     nuts: '堅果',
     sesame: '芝麻',
+  },
+  content: {
+    rice: '白米',
+    salmon: '鮭魚',
+    tomato: '番茄',
+    cucumber: '小黃瓜',
+    papper: '青椒',
+    spicyYolkSauce: '辣蛋黃醬',
+    nuts: '碎堅果',
   },
 };

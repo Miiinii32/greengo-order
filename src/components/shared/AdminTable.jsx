@@ -9,34 +9,23 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from '@/components/ui/dropdown-menu';
+import { formatters } from '@/utils/formatters';
 
-export const AdminTable = ({
-  headerContent,
-  productsContent,
-  formatters,
-  openModal,
-  deleteProduct,
-}) => {
+export const AdminTable = ({ headerContent, productsContent, openModal, deleteProduct }) => {
   const handleCapacityState = (costCapacity) => {
     let textColor = '';
     let textIcon = '';
     if (costCapacity < 1) {
-      textColor = 'text-error';
+      textColor = 'text-on-surface';
       textIcon = '‼️';
     } else if (1 < costCapacity && costCapacity < 5) {
-      textColor = 'text-on-secondary-container';
+      textColor = 'text-on-surface';
       textIcon = '⚠️';
     }
     return <TableCell className={textColor}>{`${textIcon} ${costCapacity} 份`}</TableCell>;
   };
-
+  const renderContent = (contentItem) =>
+    contentItem.map((item) => formatters('content', item)).join(' / ');
   return (
     <Table>
       {/* table header */}
@@ -53,84 +42,82 @@ export const AdminTable = ({
 
       {/* table body */}
       <TableBody>
-        {productsContent?.map((item) => (
+        {productsContent()?.map((item) => (
           <TableRow key={item.id}>
+            {/* 產品圖片 */}
             <TableCell className="font-medium">
               <div className="flex justify-center items-center">
                 <img
                   src={item.imageUrl}
                   alt={item.title}
-                  className="bg-primary size-12 rounded-sm border border-border-variant object-cover hover:scale-110 transition-transform cursor-zoom-in"
+                  className="size-12 rounded-sm object-cover hover:scale-110 transition-transform cursor-zoom-in"
                 />
               </div>
             </TableCell>
+
+            {/* 產品標題 */}
             <TableCell className="font-medium">{item.title}</TableCell>
+
+            {/* 產品類別 */}
             <TableCell>
-              <Badge variant="outline">{formatters('ingredientsType', item.type)}</Badge>
+              <Badge variant="outline">{formatters('type', item.type)}</Badge>
             </TableCell>
-            <TableCell>{`$ ${item.price}`}</TableCell>
-            <TableCell>{`${item.capacity} g`}</TableCell>
-            <TableCell>{`$ ${item.costPrice}`}</TableCell>
-            {handleCapacityState(item.costCapacity)}
+
+            {/* 上架售價 */}
+            <TableCell>$ {item.price}</TableCell>
+
+            {/* 成本價 */}
+            {item.costPrice ? <TableCell>$ {item.costPrice}</TableCell> : null}
+
+            {/* 上架份量 */}
+            <TableCell>{item.capacity} g</TableCell>
+
+            {/* 內容物 */}
             {item.content ? (
               <TableCell className="flex justify-center">
-                <div className="text-left">
-                  基底：糙米 <br />
-                  蛋白：雞胸 / 鮪魚 / 蝦仁
-                  <br /> 配菜：毛豆 / 杏鮑菇 / 彩椒 / 番茄 <br />
-                  醬料：蜂蜜芥末 <br />
-                  撒料：堅果酥
+                <div className="text-left leading-6.5">
+                  基底：{renderContent(item.content.base)}
+                  <br />
+                  蛋白：{renderContent(item.content.protein)}
+                  <br /> 配菜：{renderContent(item.content.side)} <br />
+                  醬料：{renderContent(item.content.sauce)} <br />
+                  撒料：{renderContent(item.content.topping)}
                 </div>
               </TableCell>
             ) : null}
+
+            {/* 庫存量 */}
+            {handleCapacityState(item.stockQuantity)}
+
+            {/* 上架狀態 */}
             <TableCell>
               <Badge variant={item.isEnabled ? 'success' : 'default'}>
                 {item.isEnabled ? <Icons.success /> : <Icons.error />}
-                {item.isEnabled ? '已上架' : '已下架'}
+                {item.isEnabled ? '上架中' : '已下架'}
               </Badge>
             </TableCell>
 
+            {/* 操作按鈕  */}
             <TableCell>
               <Button
                 variant="ghost"
                 size="icon"
                 className="size-11"
                 onClick={() => {
-                  openModal(item);
+                  openModal('edit', item);
                 }}
               >
                 <Icons.edit />
               </Button>
-              <Button variant="ghost" size="icon" className="size-11" onClick={deleteProduct}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-11"
+                onClick={() => deleteProduct(item.id)}
+              >
                 <Icons.delete />
               </Button>
             </TableCell>
-
-            {/* operate */}
-            {/* <TableCell className="pr-6">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="size-11">
-                    <Icons.more />
-                    <span className="sr-only">操作</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={openModal}>
-                    <Icons.look />
-                    查看
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Icons.edit />
-                    編輯
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Icons.delete />
-                    刪除
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </TableCell> */}
           </TableRow>
         ))}
       </TableBody>

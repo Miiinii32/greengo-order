@@ -18,7 +18,7 @@ function TableHeader({ className, ...props }) {
   return (
     <thead
       data-slot="table-header"
-      className={cn('[&_tr]:border-b [&_tr]:border-border bg-surface-dim/90', className)}
+      className={cn('[&_tr]:border-b [&_tr]:border-border-variant bg-surface-dim/90', className)}
       {...props}
     />
   );
@@ -62,7 +62,7 @@ function TableHead({ className, ...props }) {
     <th
       data-slot="table-head"
       className={cn(
-        'h-14 p-4 text-center align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pr-0',
+        'h-12 p-4 text-center align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pr-0',
         className,
       )}
       {...props}
@@ -75,7 +75,7 @@ function TableCell({ className, ...props }) {
     <td
       data-slot="table-cell"
       className={cn(
-        'p-4 text-center not-only:align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0',
+        'px-4 py-3.5 text-center not-only:align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0',
         className,
       )}
       {...props}

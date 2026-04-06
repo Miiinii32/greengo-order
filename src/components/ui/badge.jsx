@@ -9,12 +9,12 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-surface-dim text-on-surface-dim [a]:hover:bg-primary/80',
+        default: 'bg-surface-dim text-on-surface-variant [a]:hover:bg-primary/80',
         success: 'bg-success-container text-success [a]:hover:bg-primary/80',
         error:
           'bg-error-container text-error focus-visible:ring-error/20 dark:bg-error/20 dark:focus-visible:ring-error/40 [a]:hover:bg-error/20',
         outline:
-          'border-on-surface-light text-on-surface [a]:hover:-surface-hover/50 [a]:hover:text-on-surface',
+          'border-on-surface-lighter text-on-surface [a]:hover:-surface-hover/50 [a]:hover:text-on-surface',
         ghost: 'hover:hover:-surface-hover/50 hover:text-on-surface dark:hover:bg-muted/50',
         link: 'text-primary underline-offset-4 hover:underline',
         /* 依照功能分類 */
