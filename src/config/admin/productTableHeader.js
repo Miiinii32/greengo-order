@@ -90,6 +90,10 @@ export const PRODUCTS_TABLE_HEADER = {
       value: 'capacity',
     },
     {
+      text: '內容物',
+      value: 'content',
+    },
+    {
       text: '庫存量',
       value: 'stockQuantity',
     },

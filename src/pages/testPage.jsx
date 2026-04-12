@@ -23,140 +23,79 @@
         </div>
       </div> */
 }
-
-('use client');
-
-import * as React from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import * as z from 'zod';
-
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroupTextarea,
-} from '@/components/ui/input-group';
-
-// Zod schema 保持不變，它在 JS 中同樣運作良好
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(5, 'Bug title must be at least 5 characters.')
-    .max(32, 'Bug title must be at most 32 characters.'),
-  description: z
-    .string()
-    .min(20, 'Description must be at least 20 characters.')
-    .max(100, 'Description must be at most 100 characters.'),
-});
-
-export function TestPages() {
-  // 移除 <z.infer<typeof formSchema>> 泛型
-  const form = useForm({
-    resolver: zodResolver(formSchema),
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useForm, useFieldArray } from 'react-hook-form';
+export const TestPages = () => {
+  const { register, control, handleSubmit } = useForm({
     defaultValues: {
-      title: '',
-      description: '',
+      interests: [{ name: '' }], // 預設值
     },
   });
 
-  // 移除參數的型別定義
-  function onSubmit(data) {
-    toast('You submitted the following values:', {
-      description: (
-        <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: 'bottom-right',
-      classNames: {
-        content: 'flex flex-col gap-2',
-      },
-      style: {
-        '--border-radius': 'calc(var(--radius) + 4px)',
-      },
-    });
-  }
+  // 1. 初始化 useFieldArray
+  const { fields, append, remove } = useFieldArray({
+    control, // 必須傳入來自 useForm 的 control
+    name: 'interests', // 對應 defaultValues 中的 key
+  });
+
+  const onSubmit = (data) => console.log(data);
 
   return (
-    <Card className="w-full sm:max-w-md">
-      <CardHeader>
-        <CardTitle>Bug Report</CardTitle>
-        <CardDescription>Help us improve by reporting bugs you encounter.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
-          <FieldGroup>
-            <Controller
-              name="title"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-title">Bug Title</FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-demo-title"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Login button not working on mobile"
-                    autoComplete="off"
-                  />
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                </Field>
-              )}
+    <>
+      <Tabs defaultValue="overview" className="w-[400px]">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview">
+          <Card>
+            <CardHeader>
+              <CardTitle>Overview</CardTitle>
+              <CardDescription>
+                View your key metrics and recent project activity. Track progress across all your
+                active projects.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              You have 12 active projects and 3 pending tasks.
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="analytics">
+          <Card>
+            <CardHeader>
+              <CardTitle>Analytics</CardTitle>
+              <CardDescription>
+                Track performance and user engagement metrics. Monitor trends and identify growth
+                opportunities.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              Page views are up 25% compared to last month.
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {fields.map((item, index) => (
+          <div key={item.id}>
+            {/* 2. 必須使用 item.id 作為 key */}
+            <input
+              {...register(`interests.${index}.name`)} // 3. 使用 index 進行註冊
             />
-            <Controller
-              name="description"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-description">Description</FieldLabel>
-                  <InputGroup>
-                    <InputGroupTextarea
-                      {...field}
-                      id="form-rhf-demo-description"
-                      placeholder="I'm having an issue with the login button on mobile."
-                      rows={6}
-                      className="min-h-24 resize-none"
-                      aria-invalid={fieldState.invalid}
-                    />
-                    <InputGroupAddon align="block-end">
-                      <InputGroupText className="tabular-nums">
-                        {field.value.length}/100 characters
-                      </InputGroupText>
-                    </InputGroupAddon>
-                  </InputGroup>
-                  <FieldDescription>
-                    Include steps to reproduce, expected behavior, and what actually happened.
-                  </FieldDescription>
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                </Field>
-              )}
-            />
-          </FieldGroup>
-        </form>
-      </CardContent>
-      <CardFooter>
-        <Field orientation="horizontal">
-          <Button type="button" variant="outline" onClick={() => form.reset()}>
-            Reset
-          </Button>
-          <Button type="submit" form="form-rhf-demo">
-            Submit
-          </Button>
-        </Field>
-      </CardFooter>
-    </Card>
+            <button type="button" onClick={() => remove(index)}>
+              刪除
+            </button>
+          </div>
+        ))}
+
+        <button type="button" onClick={() => append({ name: '' })}>
+          新增項目
+        </button>
+
+        <button type="submit">提交</button>
+      </form>
+    </>
   );
-}
+};

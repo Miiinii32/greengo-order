@@ -16,34 +16,52 @@ export const SUITABLE_TYPE_TAG = {
 };
 
 export const ALLERGEN_TAG = {
-  options: [
-    {
-      text: '牛肉',
-      value: 'beef',
-    },
-    {
-      text: '海鮮',
-      value: 'seafish',
-    },
-    {
-      text: '辣',
-      value: 'spicy',
-    },
-    {
-      text: '大豆',
-      value: 'soy',
-    },
-    {
-      text: '蛋',
-      value: 'egg',
-    },
-    {
-      text: '堅果',
-      value: 'nuts',
-    },
-    {
-      text: '芝麻',
-      value: 'sesame',
-    },
-  ],
+  ingredients: {
+    options: [
+      {
+        text: '牛肉',
+        value: 'beef',
+      },
+      {
+        text: '海鮮',
+        value: 'seafish',
+      },
+      {
+        text: '辣',
+        value: 'spicy',
+      },
+      {
+        text: '大豆',
+        value: 'soy',
+      },
+      {
+        text: '蛋',
+        value: 'egg',
+      },
+      {
+        text: '堅果',
+        value: 'nuts',
+      },
+      {
+        text: '芝麻',
+        value: 'sesame',
+      },
+    ],
+  },
+  drink: {
+    options: [
+      {
+        text: '咖啡因',
+        value: 'caffeine',
+      },
+      {
+        text: '糖',
+        value: 'sugar',
+      },
+      {
+        text: '奶',
+        value: 'milk',
+      },
+    ],
+  },
 };

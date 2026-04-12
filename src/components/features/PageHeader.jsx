@@ -1,8 +1,8 @@
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { OneGroupSelects } from './shared/Selects';
-import { Icons } from './shared/Icons';
-import { Buttons } from './shared/Buttons';
+import { OneGroupSelects } from '../shared/Selects';
+import { Icons } from '../shared/Icons';
+import { Buttons } from '../shared/Buttons';
 
 export const PageHeader = ({
   title,

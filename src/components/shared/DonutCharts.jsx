@@ -44,7 +44,7 @@ export const DonutChart = ({ calories, proteinGrams, carbsGrams, fatGrams }) => 
                 className={totalValue === 0 ? 'hidden' : 'text-xs font-mono bg-surfce'}
               >
                 <tspan>{formatters('nutrition', nutrition)}</tspan>
-                <tspan x={x > cx ? x + 6 : x - 6} y={y + 16}>{`${value.toFixed(1)} g`}</tspan>
+                <tspan x={x > cx ? x + 6 : x - 6} y={y + 16}>{`${value?.toFixed(1)} g`}</tspan>
               </text>
             )}
             labelLine={{ stroke: totalValue === 0 ? 'var(--surface)' : 'var(--on-surface)' }}
@@ -106,7 +106,7 @@ export const DonutChart = ({ calories, proteinGrams, carbsGrams, fatGrams }) => 
               <div className="size-2 rounded-xs mr-2" style={{ backgroundColor: item.fill }} />
               <span className="text-on-surface">{formatters('nutrition', item.nutrition)}</span>
             </div>
-            <span className="font-normal text-on-surface">{item.value} g</span>
+            <span className="font-normal text-on-surface">{item.value?.toFixed()} g</span>
           </div>
         ))}
       </div>

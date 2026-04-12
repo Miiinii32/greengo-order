@@ -9,7 +9,7 @@ import { OrderPage } from '@/pages/admin/OrderPage';
 import { LoginPage } from '@/pages/admin/LoginPages';
 import { OverviewPage } from '@/pages/admin/Overview';
 import { ProductsLayout } from '@/layout/admin/ProductsLayout';
-// import { TestPages } from '@/pages/testPage';
+import { TestPages } from '@/pages/testPage';
 
 const routes = [
   {
@@ -85,10 +85,10 @@ const routes = [
       // },
     ],
   },
-  // {
-  //   path: '/test',
-  //   element: <TestPages />,
-  // },
+  {
+    path: '/test',
+    element: <TestPages />,
+  },
 ];
 
 const router = createHashRouter(routes);

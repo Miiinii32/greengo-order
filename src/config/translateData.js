@@ -27,7 +27,8 @@ export const FORMATTER_DATA = {
     sesame: '芝麻',
   },
   content: {
-    rice: '白米',
+    plainRice: '白米',
+    chickenBreast: '雞胸肉',
     salmon: '鮭魚',
     tomato: '番茄',
     cucumber: '小黃瓜',

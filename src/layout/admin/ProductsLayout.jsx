@@ -4,12 +4,13 @@ import { useParams } from 'react-router-dom';
 import { GETproducts, DELETEsingleProduct } from '@/api/adminApi';
 
 /* pages, component */
-import { PageHeader } from '@/components/PageHeader';
-import { AdminTable } from '@/components/shared/AdminTable';
+import { PageHeader } from '@/components/features/PageHeader';
+import { AdminTable } from '@/components/features/AdminTable';
 import { ProductDetailPage } from '@/pages/admin/ProductDetailPage';
 
 /* config */
 import { PRODUCT_LAYOUT } from '@/config/admin/productLayout';
+import { PRODUCT_DETAIL_PAGE } from '@/config/admin/productDetailPage';
 
 // 1. 定義 Reducer 處理所有狀態
 // const productReducer = (state, action) => {
@@ -146,9 +147,12 @@ export const ProductsLayout = () => {
         <ProductDetailPage
           isOpenModal={isOpenModal}
           onOpenChange={setIsOpenModal}
-          productContent={modalProduct}
-          defaultContent={currentProductLayoutContent.detailPage.defaultContent}
+          layoutContent={PRODUCT_DETAIL_PAGE}
+          allProducts={allProducts}
+          formProductValue={modalProduct}
+          formDefaultValue={currentProductLayoutContent.detailPage.defaultValueContent}
           modalType={modalType}
+          category={category}
           getProducts={getProducts}
         />
       )}

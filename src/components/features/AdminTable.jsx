@@ -24,8 +24,12 @@ export const AdminTable = ({ headerContent, productsContent, openModal, deletePr
     }
     return <TableCell className={textColor}>{`${textIcon} ${costCapacity} 份`}</TableCell>;
   };
-  const renderContent = (contentItem) =>
-    contentItem.map((item) => formatters('content', item)).join(' / ');
+  const renderContent = (contentItem) => {
+    if (!Array.isArray(contentItem)) return '無';
+
+    return contentItem.map((item) => formatters('content', item)).join(' / ');
+  };
+
   return (
     <Table>
       {/* table header */}
@@ -73,15 +77,21 @@ export const AdminTable = ({ headerContent, productsContent, openModal, deletePr
             <TableCell>{item.capacity} g</TableCell>
 
             {/* 內容物 */}
-            {item.content ? (
+            {item.category === 'fixedPokes' ? (
               <TableCell className="flex justify-center">
-                <div className="text-left leading-6.5">
+                <div className="text-left leading-5.5 text-sm">
                   基底：{renderContent(item.content.base)}
                   <br />
                   蛋白：{renderContent(item.content.protein)}
                   <br /> 配菜：{renderContent(item.content.side)} <br />
                   醬料：{renderContent(item.content.sauce)} <br />
                   撒料：{renderContent(item.content.topping)}
+                </div>
+              </TableCell>
+            ) : item.category === 'otherProducts' ? (
+              <TableCell className="flex justify-center h-full">
+                <div className="text-left leading-5.5 text-sm items-center whitespace-break-spaces">
+                  {item.content?.map((item) => item).join('\n')}
                 </div>
               </TableCell>
             ) : null}

@@ -1,6 +1,6 @@
 import { POSTlogout } from '@/api/authRequestApi';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { AdminSidebar } from '@/components/AdminSidebar';
+import { AdminSidebar } from '@/components/features/AdminSidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 

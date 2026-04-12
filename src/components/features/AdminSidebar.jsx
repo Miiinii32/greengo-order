@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { SIDEBAR_MENU } from '@/config/admin/sidebarMenu';
 import { NavLink } from 'react-router-dom';
-import { Buttons } from './shared/Buttons';
-import { SidebarMain } from '@/components/SidebarMain';
+import { Buttons } from '@/components/shared/Buttons';
+import { SidebarMain } from '@/components/features/SidebarMain';
 import {
   Sidebar,
   SidebarContent,
